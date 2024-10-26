@@ -5,23 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c518d01-799a-4261-b2a9-3ebf4ce6b3f6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/AmountType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/ImageLink.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/Ingredient.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/IngredientName.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/InstructionItem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/RecipeDescription.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/RecipeName.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.SharedKernel/Constraints/RecipeConstraints.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.SharedKernel/Error.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.SharedKernel/Result.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.SharedKernel/ResultT.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipeWebsite.sln" beforeDir="false" afterPath="$PROJECT_DIR$/RecipeWebsite.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.RecipeWebsite/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecipeWebsite/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/ImageLink.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/Recipe.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/Recipe.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/RecipeWebsite.Domain.Tests/RecipeEntityTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/RecipeWebsite.Domain.Tests/RecipeEntityTest.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DpaMonitoringSettings">
+    <option name="autoShow" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -51,20 +46,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "62d8d4eb-4975-4464-8dfa-2dad97c0b83f.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "development",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;62d8d4eb-4975-4464-8dfa-2dad97c0b83f.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -74,7 +69,8 @@
       <option name="presentableId" value="Default" />
       <updated>1729314465330</updated>
       <workItem from="1729314467524" duration="8057000" />
-      <workItem from="1729917235055" duration="6779000" />
+      <workItem from="1729917235055" duration="7472000" />
+      <workItem from="1730192825866" duration="283000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -84,7 +80,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729314546537</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Created Recipe Entity in Domain layer">
+      <option name="closed" value="true" />
+      <created>1729928447391</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729928447391</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -95,25 +99,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Initial Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/tests/RecipeWebsite.Domain.Tests/RecipeEntityTest.cs</url>
-          <line>96</line>
-          <properties documentPath="$PROJECT_DIR$/tests/RecipeWebsite.Domain.Tests/RecipeEntityTest.cs" containingFunctionPresentation="Method 'ImageLinkTest'">
-            <startOffsets>
-              <option value="3300" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3379" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Created Recipe Entity in Domain layer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created Recipe Entity in Domain layer" />
   </component>
 </project>

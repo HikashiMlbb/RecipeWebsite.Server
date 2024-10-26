@@ -90,21 +90,4 @@ public class RecipeEntityTest
             Assert.That(_rating.Rate, Is.EqualTo(2));
         });
     }
-
-    [Test]
-    public void ImageLinkTest()
-    {
-        var validLink = ImageLink.Create("https://www.yandex.ru/image/1234432132.img");
-        var validSpace = ImageLink.Create("                                https://google.com/picture?id=12345     ");
-        var xssLink = ImageLink.Create("https://www.yandex.ru/image?=<script>alert('Hacked!')</script>12345.img");
-        var invalidLink = ImageLink.Create("What");
-        
-        Assert.Multiple(() =>
-        {
-            Assert.That(validLink.IsSuccess, Is.True);
-            Assert.That(validSpace.IsSuccess, Is.True);
-            Assert.That(xssLink.IsSuccess, Is.False);
-            Assert.That(invalidLink.IsSuccess, Is.False);
-        });
-    }
 }

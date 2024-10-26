@@ -5,7 +5,7 @@ public class Recipe
     public Guid Id { get; set; }
     public RecipeName Name { get; set; }
     public RecipeDescription Description { get; set; }
-    public ImageLink ImageLink { get; set; }
+    public Guid ImageName { get; set; }
     public List<Ingredient> Ingredients { get; set; }
     public TimeSpan CookingTime { get; set; }
     public List<InstructionItem> Instruction { get; set; }
@@ -16,7 +16,8 @@ public class Recipe
     public Recipe(
         Guid id, 
         RecipeName recipeName, 
-        RecipeDescription recipeDescription, 
+        RecipeDescription recipeDescription,
+        Guid imageName, 
         List<Ingredient> ingredients,
         TimeSpan cookingTime,
         List<InstructionItem> instruction,
@@ -27,6 +28,7 @@ public class Recipe
         Id = id;
         Name = recipeName;
         Description = recipeDescription;
+        ImageName = imageName;
         Ingredients = ingredients;
         CookingTime = cookingTime;
         Instruction = instruction;
