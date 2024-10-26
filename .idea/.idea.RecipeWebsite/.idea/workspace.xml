@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4c518d01-799a-4261-b2a9-3ebf4ce6b3f6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/AmountType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/ImageLink.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/Ingredient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/IngredientName.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/InstructionItem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/RecipeDescription.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/RecipeName.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.SharedKernel/Constraints/RecipeConstraints.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.SharedKernel/Error.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.SharedKernel/Result.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.SharedKernel/ResultT.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipeWebsite.sln" beforeDir="false" afterPath="$PROJECT_DIR$/RecipeWebsite.sln" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d6eacc30f73c491c94ae7625a65c78ac77a00/a3/4f3ca55f/Assert.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7f57eabcbac458cf4626a4c98a761414f5ed3895280f4d415e5cf53cc2abf/SimpleWorkItem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f536671e825030c7f17fbf3f75511651c281f2429edc8fd6ea660418f825949/BeforeAndAfterTestCommand.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2ndsofyyqW4rKN6rsepcTht5SI8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "62d8d4eb-4975-4464-8dfa-2dad97c0b83f.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "development",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4c518d01-799a-4261-b2a9-3ebf4ce6b3f6" name="Changes" comment="" />
+      <created>1729314465330</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729314465330</updated>
+      <workItem from="1729314467524" duration="8057000" />
+      <workItem from="1729917235055" duration="6779000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1729314546537</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1729314546537</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Initial Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/tests/RecipeWebsite.Domain.Tests/RecipeEntityTest.cs</url>
+          <line>96</line>
+          <properties documentPath="$PROJECT_DIR$/tests/RecipeWebsite.Domain.Tests/RecipeEntityTest.cs" containingFunctionPresentation="Method 'ImageLinkTest'">
+            <startOffsets>
+              <option value="3300" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3379" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
