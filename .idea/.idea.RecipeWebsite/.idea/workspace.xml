@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c518d01-799a-4261-b2a9-3ebf4ce6b3f6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/AccountEntity/Account.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/AccountEntity/AccountId.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/AccountEntity/Email.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/AccountEntity/Nickname.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/AccountEntity/Password.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/RecipeId.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.SharedKernel/Constraints/AccountConstraints.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/RecipeWebsite.Domain.Tests/AccountEntityTest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RecipeWebsite/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecipeWebsite/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/ImageLink.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipeWebsite.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/RecipeWebsite.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/Recipe.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/Recipe.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/RecipeWebsite.Domain.Tests/RecipeEntityTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/RecipeWebsite.Domain.Tests/RecipeEntityTest.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +32,11 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d6eacc30f73c491c94ae7625a65c78ac77a00/a3/4f3ca55f/Assert.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/46a322d26154b982566e1817203e5452c91223f93b0e392d9c5b4806696fdc1/Assert.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7f57eabcbac458cf4626a4c98a761414f5ed3895280f4d415e5cf53cc2abf/SimpleWorkItem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f536671e825030c7f17fbf3f75511651c281f2429edc8fd6ea660418f825949/BeforeAndAfterTestCommand.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -46,20 +55,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;62d8d4eb-4975-4464-8dfa-2dad97c0b83f.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "62d8d4eb-4975-4464-8dfa-2dad97c0b83f.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "development",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -70,7 +79,8 @@
       <updated>1729314465330</updated>
       <workItem from="1729314467524" duration="8057000" />
       <workItem from="1729917235055" duration="7472000" />
-      <workItem from="1730192825866" duration="283000" />
+      <workItem from="1730192825866" duration="10031000" />
+      <workItem from="1730284866509" duration="2560000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -88,7 +98,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729928447391</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Created Recipe Entity in Domain layer">
+      <option name="closed" value="true" />
+      <created>1730193148066</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730193148066</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -96,6 +114,17 @@
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Initial Commit" />

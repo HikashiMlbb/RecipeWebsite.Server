@@ -2,7 +2,7 @@ namespace RecipeWebsite.Domain.RecipeEntity;
 
 public class Recipe
 {
-    public Guid Id { get; set; }
+    public RecipeId Id { get; set; }
     public RecipeName Name { get; set; }
     public RecipeDescription Description { get; set; }
     public Guid ImageName { get; set; }
@@ -14,7 +14,7 @@ public class Recipe
     public Rating Rate { get; set; }
 
     public Recipe(
-        Guid id, 
+        RecipeId id, 
         RecipeName recipeName, 
         RecipeDescription recipeDescription,
         Guid imageName, 
