@@ -1,3 +1,5 @@
+using RecipeWebsite.Domain.CommentEntity;
+
 namespace RecipeWebsite.Domain.RecipeEntity;
 
 public class Recipe
@@ -12,6 +14,7 @@ public class Recipe
     public Difficulty Difficulty { get; set; }
     public DateTime PublicationDate { get; set; }
     public Rating Rate { get; set; }
+    public List<CommentId> CommentsId { get; set; }
 
     public Recipe(
         RecipeId id, 
@@ -23,7 +26,8 @@ public class Recipe
         List<InstructionItem> instruction,
         Difficulty difficulty,
         DateTime publicationDate,
-        Rating rate)
+        Rating rate,
+        List<CommentId> commentsId)
     {
         Id = id;
         Name = recipeName;
@@ -35,5 +39,6 @@ public class Recipe
         Difficulty = difficulty;
         PublicationDate = publicationDate;
         Rate = rate;
+        CommentsId = commentsId;
     }
 }

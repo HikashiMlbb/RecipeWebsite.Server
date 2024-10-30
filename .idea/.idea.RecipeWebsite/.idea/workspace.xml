@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c518d01-799a-4261-b2a9-3ebf4ce6b3f6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/AccountEntity/Account.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/AccountEntity/AccountId.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/AccountEntity/Email.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/AccountEntity/Nickname.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/AccountEntity/Password.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/RecipeId.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.SharedKernel/Constraints/AccountConstraints.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/RecipeWebsite.Domain.Tests/AccountEntityTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.RecipeWebsite/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecipeWebsite/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RecipeWebsite.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/RecipeWebsite.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/Recipe.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/Recipe.cs" afterDir="false" />
-    </list>
+    <list default="true" id="4c518d01-799a-4261-b2a9-3ebf4ce6b3f6" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +68,7 @@
       <workItem from="1729314467524" duration="8057000" />
       <workItem from="1729917235055" duration="7472000" />
       <workItem from="1730192825866" duration="10031000" />
-      <workItem from="1730284866509" duration="2560000" />
+      <workItem from="1730284866509" duration="6516000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -106,7 +94,23 @@
       <option name="project" value="LOCAL" />
       <updated>1730193148066</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added AccountEntity to Domain Layer">
+      <option name="closed" value="true" />
+      <created>1730287666413</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1730287666413</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added CommentEntity to Domain Layer">
+      <option name="closed" value="true" />
+      <created>1730310971979</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730310971979</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +133,9 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Created Recipe Entity in Domain layer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created Recipe Entity in Domain layer" />
+    <MESSAGE value="Added AccountEntity to Domain Layer" />
+    <MESSAGE value="Added Comm" />
+    <MESSAGE value="Added CommentEntity to Domain Layer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added CommentEntity to Domain Layer" />
   </component>
 </project>
