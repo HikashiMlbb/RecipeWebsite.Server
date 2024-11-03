@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c518d01-799a-4261-b2a9-3ebf4ce6b3f6" name="Changes" comment="" />
+    <list default="true" id="4c518d01-799a-4261-b2a9-3ebf4ce6b3f6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Application.Contracts/RecipeService/CreateRecipeRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Application.Contracts/RecipeWebsite.Application.Contracts.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Application/Abstractions/IRecipeService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RecipeWebsite.Application/RecipeWebsite.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.RecipeWebsite/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RecipeWebsite/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RecipeWebsite.sln" beforeDir="false" afterPath="$PROJECT_DIR$/RecipeWebsite.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/Rating.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/RecipeWebsite.Domain/RecipeEntity/Rating.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,13 +56,13 @@
   "keyToString": {
     "62d8d4eb-4975-4464-8dfa-2dad97c0b83f.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "development",
+    "git-widget-placeholder": "dev__application__layer",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
