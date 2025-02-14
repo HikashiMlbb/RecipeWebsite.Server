@@ -8,7 +8,7 @@ public class CookieService(CookieSettings settings)
     {
         return new CookieOptions
         {
-            HttpOnly = true,
+            HttpOnly = false,
             MaxAge = settings.Expires 
         };
     }
