@@ -14,7 +14,7 @@ public sealed class RecipeGetByIdResult
     public RecipeDifficulty Difficulty { get; set; }
     public DateTimeOffset PublishedAt { get; set; }
     public TimeSpan CookingTime { get; set; }
-    public Stars? UserRate { get; set; }
+    public Stars UserRate { get; set; }
 
     public Domain.RecipeEntity.Rate Rate { get; set; } = null!;
     public ICollection<Ingredient> Ingredients { get; set; } = null!;

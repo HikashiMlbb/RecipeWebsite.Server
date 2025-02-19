@@ -362,6 +362,59 @@ public class RecipeRepositoryTests : IAsyncLifetime
     }
 
     [Fact]
+    public async Task SearchRecipeById_IncludedUserRate_ReturnsRecipeWithRate()
+    {
+        #region Arrange
+
+        var recipeId = new RecipeId(144);
+        var userId = new UserId(69);
+        var title = RecipeTitle.Create("Soup").Value!;
+        
+        _repo = new RecipeRepository(new DapperConnectionFactory(_container.GetConnectionString()));
+        await using var db = new DapperConnectionFactory(_container.GetConnectionString()).Create();
+        await db.OpenAsync();
+        
+        await db.ExecuteAsync(
+            "INSERT INTO \"Users\" VALUES (@Id, 'Vovan', 'A1234', 'classic'), (70, 'Petr', 'SomePassword', 'classic'), (71, 'zxcursed', 'AnotherPassword', 'admin');",
+            new
+            {
+                Id = userId.Value
+            });
+
+        await db.ExecuteAsync(
+            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, @Title, 'D', 'I', 'Img', 'hard', now(), '2h', 0, 0);", new
+            {
+                Id = recipeId.Value,
+                AuthorId = userId.Value,
+                Title = title.Value
+            });
+
+        await db.ExecuteAsync(
+            "INSERT INTO \"RecipeRatings\" (\"RecipeId\", \"UserId\", \"Rate\") VALUES (@RecipeId, @UserId, 4)", new
+            {
+                @RecipeId = recipeId.Value,
+                @UserId = userId.Value 
+            });
+
+        #endregion
+
+        #region Act
+
+        var recipe = await _repo.SearchByIdAsync(recipeId, userId);
+
+        #endregion
+
+        #region Assert
+
+        Assert.NotNull(recipe);
+        Assert.Equal(recipeId, recipe.Id);
+        Assert.Equal(title, recipe.Title);
+        Assert.Equal(Stars.Four, recipe.UserRate);
+
+        #endregion
+    }
+
+    [Fact]
     public async Task RateAsync_SetRate()
     {
         #region Arrange

@@ -11,7 +11,7 @@ public class RecipeGetById
         _repo = repo;
     }
 
-    public async Task<Recipe?> GetRecipeAsync(int id)
+    public async Task<RecipeGetByIdResult?> GetRecipeAsync(int id)
     {
         var recipeId = new RecipeId(id);
         var foundRecipe = await _repo.SearchByIdAsync(recipeId);

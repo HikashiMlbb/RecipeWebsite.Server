@@ -1,5 +1,6 @@
 using System.Text;
 using Application.Recipes;
+using Application.Recipes.GetById;
 using Application.Recipes.GetByPage;
 using Application.Recipes.Update;
 using Dapper;
@@ -55,7 +56,7 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
         return new RecipeId(recipeId);
     }
 
-    public async Task<Recipe?> SearchByIdAsync(RecipeId recipeId)
+    public async Task<RecipeGetByIdResult?> SearchByIdAsync(RecipeId recipeId, UserId? userId = null)
     {
         await using var db = factory.Create();
         await db.OpenAsync();
@@ -82,24 +83,30 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
                                 comments."Content",
                                 comments."PublishedAt" AS "CommentPublishedAt",
                                 comment_author."Id" AS "CommentAuthorId",
-                                comment_author."Username" AS "CommentAuthorUsername"
+                                comment_author."Username" AS "CommentAuthorUsername",
+                                recipe_ratings."Rate" AS "UserRate"
                            FROM "Recipes" recipes
                            LEFT OUTER JOIN "Users" recipe_author ON recipe_author."Id" = recipes."AuthorId"
                            LEFT OUTER JOIN "Ingredients" ingredients ON ingredients."RecipeId" = recipes."Id"
                            LEFT OUTER JOIN "Comments" comments ON comments."RecipeId" = recipes."Id"
                            LEFT OUTER JOIN "Users" comment_author ON comment_author."Id" = comments."UserId"
-                           WHERE recipes."Id" = @Id;
+                           LEFT OUTER JOIN "RecipeRatings" recipe_ratings ON recipe_ratings."RecipeId" = recipes."Id"
+                           WHERE recipes."Id" = @Id
+                           AND CASE WHEN @UserId <> null THEN recipe_ratings."UserId" = @UserId
+                                    ELSE true
+                               END;
                            """;
 
         RecipeDatabaseDto? detailedDto = null;
 
         var result = 
-            (await db.QueryAsync<RecipeDatabaseDto, RecipeAuthorDto, IngredientDatabaseDto?, CommentDatabaseDto?, CommentAuthorDto, RecipeDatabaseDto>(
+            (await db.QueryAsync<RecipeDatabaseDto, RecipeAuthorDto, IngredientDatabaseDto?, CommentDatabaseDto?, CommentAuthorDto, int?, RecipeDatabaseDto>(
                 sql,
-                (recipeDto, recipeAuthorDto, ingredientDto, commentDto, commentAuthorDto) =>
+                (recipeDto, recipeAuthorDto, ingredientDto, commentDto, commentAuthorDto, userRate) =>
                 {
                     detailedDto ??= recipeDto;
                     detailedDto.Author = recipeAuthorDto;
+                    detailedDto.UserRate = userRate ?? 0;
 
                     if (ingredientDto is not null && detailedDto.Ingredients.IsAbsent(ingredientDto.IngredientId))
                     {
@@ -115,9 +122,10 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
                 },
                 new
                 {
-                    @Id = recipeId.Value
+                    @Id = recipeId.Value,
+                    @UserId = userId?.Value
                 }, 
-                splitOn: "AuthorId, IngredientId, CommentId, CommentAuthorId")).ToList();
+                splitOn: "AuthorId, IngredientId, CommentId, CommentAuthorId, UserRate")).ToList();
 
         if (result.Count == 0) return null;
 
@@ -132,7 +140,7 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
                 new User { Id = new UserId(x.Author.CommentAuthorId), Username = Username.Create(x.Author.CommentAuthorUsername).Value! },
                 x.Content, x.CommentPublishedAt).Value!).AsList();
 
-        return new Recipe
+        return new RecipeGetByIdResult
         {
             Id = new RecipeId(uniqueResult.RecipeId),
             Author = new User
@@ -148,6 +156,7 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             PublishedAt = uniqueResult.PublishedAt,
             CookingTime = uniqueResult.CookingTime,
             Rate = new Rate(uniqueResult.Rating, uniqueResult.Votes),
+            UserRate = (Stars)uniqueResult.UserRate,
             Ingredients = ingredients,
             Comments = comments
         };
