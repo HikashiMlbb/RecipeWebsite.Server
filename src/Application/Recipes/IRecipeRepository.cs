@@ -1,3 +1,4 @@
+using Application.Recipes.GetById;
 using Application.Recipes.GetByPage;
 using Application.Recipes.Update;
 using Domain.RecipeEntity;
@@ -8,7 +9,7 @@ namespace Application.Recipes;
 public interface IRecipeRepository
 {
     public Task<RecipeId> InsertAsync(Recipe newRecipe);
-    public Task<Recipe?> SearchByIdAsync(RecipeId recipeId);
+    public Task<RecipeGetByIdResult?> SearchByIdAsync(RecipeId recipeId, UserId? userId = null);
     public Task<Stars> RateAsync(RecipeId recipeId, UserId userId, Stars rate);
     public Task CommentAsync(RecipeId recipeId, Domain.RecipeEntity.Comment comment);
     public Task<IEnumerable<Recipe>> SearchByPageAsync(int page, int pageSize, RecipeSortType sortType);

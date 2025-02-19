@@ -13,6 +13,7 @@ public class RecipeDatabaseDto
     public TimeSpan CookingTime { get; set; }
     public decimal Rating { get; set; }
     public int Votes { get; set; }
+    public int UserRate { get; set; }
     public ICollection<IngredientDatabaseDto> Ingredients { get; set; } = [];
     public ICollection<CommentDatabaseDto> Comments { get; set; } = [];
 }

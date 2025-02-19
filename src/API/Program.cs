@@ -28,9 +28,7 @@ using Persistence.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsDevelopment())
-{
     DotEnv.Load(new DotEnvOptions(envFilePaths: [Path.Combine(Environment.CurrentDirectory, "..", "..", ".env")]));
-}
 
 builder.Configuration.AddEnvironmentVariables();
 
@@ -46,7 +44,7 @@ var specificOrigin = builder.Configuration.GetValue<string>("TRUSTED_ORIGIN");
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: allowSpecificOrigin, policy =>
+    options.AddPolicy(allowSpecificOrigin, policy =>
     {
         policy.WithOrigins(specificOrigin ?? "")
             .AllowAnyMethod()
@@ -72,7 +70,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 return Task.CompletedTask;
             }
         };
-        
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -130,7 +128,8 @@ builder.Services.AddScoped<IUserPrivilegeService>(_ => new UserPrivilegeService(
 
 #region Registration of Persistence Layer
 
-var connectionString = builder.Configuration.GetValue<string>("DATABASE_CONNECTION") ?? throw new ApplicationException("Database connection string has not been provided.");
+var connectionString = builder.Configuration.GetValue<string>("DATABASE_CONNECTION") ??
+                       throw new ApplicationException("Database connection string has not been provided.");
 
 builder.Services.AddScoped(typeof(DapperConnectionFactory), _ => new DapperConnectionFactory(connectionString));
 builder.Services.AddScoped<IUserRepository, UserRepository>();

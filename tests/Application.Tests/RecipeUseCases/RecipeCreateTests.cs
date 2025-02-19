@@ -2,7 +2,6 @@ using Application.Recipes;
 using Application.Recipes.Create;
 using Application.Users.UseCases;
 using Domain.RecipeEntity;
-using Domain.UserEntity;
 using Moq;
 
 // ReSharper disable InconsistentNaming
@@ -21,7 +20,7 @@ public class RecipeCreateTests
         _recipeRepoMock = new Mock<IRecipeRepository>();
         _useCase = new RecipeCreate(_userRepoMock.Object, _recipeRepoMock.Object);
     }
-    
+
     [Fact]
     public async Task TitleIsInvalid_ReturnsError()
     {
@@ -42,7 +41,7 @@ public class RecipeCreateTests
     {
         // Arrange
         var dto = new RecipeCreateDto(1, "SomeValidTitle", "", "", "", "hard", "", []);
-        
+
         // Act
         var result = await _useCase.CreateAsync(dto);
 
@@ -73,7 +72,8 @@ public class RecipeCreateTests
     {
         // Arrange
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "what?", "", []);
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "what?", "",
+            []);
 
         // Act
         var result = await _useCase.CreateAsync(dto);
@@ -125,7 +125,7 @@ public class RecipeCreateTests
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
             "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "hard",
             "6.23:59:59.9990000", []);
-        
+
         // Act
         var result = await _useCase.CreateAsync(dto);
 

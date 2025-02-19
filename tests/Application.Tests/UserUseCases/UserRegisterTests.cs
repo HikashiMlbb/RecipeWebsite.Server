@@ -12,9 +12,9 @@ public class UserRegisterTests
 {
     private readonly Mock<IJwtService> _jwtServiceMock;
     private readonly Mock<IPasswordService> _passwordServiceMock;
-    private readonly Mock<IUserRepository> _userRepositoryMock;
     private readonly Mock<IUserPrivilegeService> _privilegeMock;
     private readonly UserRegister _useCase;
+    private readonly Mock<IUserRepository> _userRepositoryMock;
 
     public UserRegisterTests()
     {
@@ -22,7 +22,8 @@ public class UserRegisterTests
         _passwordServiceMock = new Mock<IPasswordService>();
         _jwtServiceMock = new Mock<IJwtService>();
         _privilegeMock = new Mock<IUserPrivilegeService>();
-        _useCase = new UserRegister(_userRepositoryMock.Object, _passwordServiceMock.Object, _jwtServiceMock.Object, _privilegeMock.Object);
+        _useCase = new UserRegister(_userRepositoryMock.Object, _passwordServiceMock.Object, _jwtServiceMock.Object,
+            _privilegeMock.Object);
     }
 
     [Fact]

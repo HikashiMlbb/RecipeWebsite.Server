@@ -8,10 +8,11 @@ public class UserRegister
 {
     private readonly IJwtService _jwtService;
     private readonly IPasswordService _passwordService;
-    private readonly IUserRepository _userRepository;
     private readonly IUserPrivilegeService _privilegeService;
+    private readonly IUserRepository _userRepository;
 
-    public UserRegister(IUserRepository userRepo, IPasswordService passwordService, IJwtService jwtService, IUserPrivilegeService privilegeService)
+    public UserRegister(IUserRepository userRepo, IPasswordService passwordService, IJwtService jwtService,
+        IUserPrivilegeService privilegeService)
     {
         _userRepository = userRepo;
         _passwordService = passwordService;
@@ -32,7 +33,7 @@ public class UserRegister
 
         var role = default(UserRole);
         if (_privilegeService.IsAdminUsername(username)) role = UserRole.Admin;
-        
+
         var newUser = new User(username, password, role);
         var result = await _userRepository.InsertAsync(newUser);
 

@@ -24,37 +24,37 @@ public class RecipeGetByIdTests
     {
         // Arrange
         const int id = 16;
-        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>())).ReturnsAsync((Recipe)null!);
+        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null)).ReturnsAsync((RecipeGetByIdResult)null!);
 
         // Act
         var result = await _useCase.GetRecipeAsync(id);
 
         // Assert
         Assert.Null(result);
-        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>()), Times.Once);
+        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null), Times.Once);
     }
 
     [Fact]
     public async Task RecipeFound_ReturnsRecipe()
     {
         // Arrange
-        var obj = new Recipe();
+        var obj = new RecipeGetByIdResult();
         const int id = 16;
-        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>())).ReturnsAsync(obj);
+        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null)).ReturnsAsync(obj);
 
         // Act
         var result = await _useCase.GetRecipeAsync(id);
 
         // Assert
         Assert.NotNull(result);
-        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>()), Times.Once);
+        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null), Times.Once);
     }
 
     [Fact]
     public async Task RecipeFound_SortedComments_ReturnsRecipe()
     {
         // Arrange
-        var obj = new Recipe();
+        var obj = new RecipeGetByIdResult();
         var list = new List<Comment>
         {
             new(new User(), "I am First!", DateTimeOffset.Now - TimeSpan.FromDays(14)),
@@ -64,7 +64,7 @@ public class RecipeGetByIdTests
 
         obj.Comments = new List<Comment>(list);
         const int id = 16;
-        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>())).ReturnsAsync(obj);
+        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null)).ReturnsAsync(obj);
 
         // Act
         var result = await _useCase.GetRecipeAsync(id);
@@ -75,6 +75,6 @@ public class RecipeGetByIdTests
         Assert.Equal(list.ElementAt(1), result.Comments.ElementAt(0));
         Assert.Equal(list.ElementAt(2), result.Comments.ElementAt(1));
         Assert.Equal(list.ElementAt(0), result.Comments.ElementAt(2));
-        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>()), Times.Once);
+        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null), Times.Once);
     }
 }

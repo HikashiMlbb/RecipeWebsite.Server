@@ -6,5 +6,7 @@ namespace Infrastructure.Services;
 public class UserPrivilegeService(string? adminUsername) : IUserPrivilegeService
 {
     public bool IsAdminUsername(Username username)
-        => username.Value == adminUsername;
+    {
+        return username.Value == adminUsername;
+    }
 }

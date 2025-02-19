@@ -20,11 +20,6 @@ public class Result
         return new Result();
     }
 
-    public static Result Failure(Error error)
-    {
-        return new Result(error);
-    }
-
     public static implicit operator Result(Error error)
     {
         return new Result(error);

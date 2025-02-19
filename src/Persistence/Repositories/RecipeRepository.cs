@@ -1,5 +1,6 @@
 using System.Text;
 using Application.Recipes;
+using Application.Recipes.GetById;
 using Application.Recipes.GetByPage;
 using Application.Recipes.Update;
 using Dapper;
@@ -41,21 +42,22 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             Rating = 0,
             Votes = 0
         });
-        
-        await transaction.UseBulkOptions(x => x.DestinationTableName = "Ingredients").BulkInsertAsync(newRecipe.Ingredients.Select(x => new
-        {
-            RecipeId = recipeId,
-            Name = x.Name,
-            Count = x.Count,
-            Unit = x.UnitType.ToString()
-        }));
+
+        await transaction.UseBulkOptions(x => x.DestinationTableName = "Ingredients").BulkInsertAsync(
+            newRecipe.Ingredients.Select(x => new
+            {
+                RecipeId = recipeId,
+                Name = x.Name,
+                Count = x.Count,
+                Unit = x.UnitType.ToString()
+            }));
 
         await transaction.CommitAsync();
 
         return new RecipeId(recipeId);
     }
 
-    public async Task<Recipe?> SearchByIdAsync(RecipeId recipeId)
+    public async Task<RecipeGetByIdResult?> SearchByIdAsync(RecipeId recipeId, UserId? userId = null)
     {
         await using var db = factory.Create();
         await db.OpenAsync();
@@ -82,57 +84,63 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
                                 comments."Content",
                                 comments."PublishedAt" AS "CommentPublishedAt",
                                 comment_author."Id" AS "CommentAuthorId",
-                                comment_author."Username" AS "CommentAuthorUsername"
+                                comment_author."Username" AS "CommentAuthorUsername",
+                                recipe_ratings."Rate" AS "UserRate"
                            FROM "Recipes" recipes
                            LEFT OUTER JOIN "Users" recipe_author ON recipe_author."Id" = recipes."AuthorId"
                            LEFT OUTER JOIN "Ingredients" ingredients ON ingredients."RecipeId" = recipes."Id"
                            LEFT OUTER JOIN "Comments" comments ON comments."RecipeId" = recipes."Id"
                            LEFT OUTER JOIN "Users" comment_author ON comment_author."Id" = comments."UserId"
+                           LEFT OUTER JOIN "RecipeRatings" recipe_ratings ON recipe_ratings."RecipeId" = recipes."Id" AND recipe_ratings."UserId" = @UserId
                            WHERE recipes."Id" = @Id;
                            """;
 
         RecipeDatabaseDto? detailedDto = null;
 
-        var result = 
-            (await db.QueryAsync<RecipeDatabaseDto, RecipeAuthorDto, IngredientDatabaseDto?, CommentDatabaseDto?, CommentAuthorDto, RecipeDatabaseDto>(
-                sql,
-                (recipeDto, recipeAuthorDto, ingredientDto, commentDto, commentAuthorDto) =>
-                {
-                    detailedDto ??= recipeDto;
-                    detailedDto.Author = recipeAuthorDto;
-
-                    if (ingredientDto is not null && detailedDto.Ingredients.IsAbsent(ingredientDto.IngredientId))
+        var result =
+            (await db
+                .QueryAsync<RecipeDatabaseDto, RecipeAuthorDto, IngredientDatabaseDto?, CommentDatabaseDto?,
+                    CommentAuthorDto, int?, RecipeDatabaseDto>(
+                    sql,
+                    (recipeDto, recipeAuthorDto, ingredientDto, commentDto, commentAuthorDto, userRate) =>
                     {
-                        detailedDto.Ingredients.Add(ingredientDto);
-                    }
+                        detailedDto ??= recipeDto;
+                        detailedDto.Author = recipeAuthorDto;
+                        detailedDto.UserRate = userRate ?? 0;
 
-                    if (commentDto is not null && detailedDto.Comments.IsAbsent(commentDto.CommentId))
+                        if (ingredientDto is not null && detailedDto.Ingredients.IsAbsent(ingredientDto.IngredientId))
+                            detailedDto.Ingredients.Add(ingredientDto);
+
+                        if (commentDto is not null && detailedDto.Comments.IsAbsent(commentDto.CommentId))
+                            detailedDto.Comments.Add(commentDto with { Author = commentAuthorDto });
+
+                        return detailedDto;
+                    },
+                    new
                     {
-                        detailedDto.Comments.Add(commentDto with { Author = commentAuthorDto });
-                    }
-
-                    return detailedDto;
-                },
-                new
-                {
-                    @Id = recipeId.Value
-                }, 
-                splitOn: "AuthorId, IngredientId, CommentId, CommentAuthorId")).ToList();
+                        Id = recipeId.Value,
+                        UserId = userId?.Value
+                    },
+                    splitOn: "AuthorId, IngredientId, CommentId, CommentAuthorId, UserRate")).ToList();
 
         if (result.Count == 0) return null;
 
         var uniqueResult = result.Distinct().Single();
 
 
-        ICollection<Ingredient> ingredients = uniqueResult.Ingredients.Select(x => 
-            new Ingredient(x.Name, x.Count, Enum.Parse<IngredientType>(x.UnitType, ignoreCase: true))).AsList();
+        ICollection<Ingredient> ingredients = uniqueResult.Ingredients.Select(x =>
+            new Ingredient(x.Name, x.Count, Enum.Parse<IngredientType>(x.UnitType, true))).AsList();
 
         ICollection<Comment> comments = uniqueResult.Comments.Select(x =>
             Comment.Create(
-                new User { Id = new UserId(x.Author.CommentAuthorId), Username = Username.Create(x.Author.CommentAuthorUsername).Value! },
+                new User
+                {
+                    Id = new UserId(x.Author.CommentAuthorId),
+                    Username = Username.Create(x.Author.CommentAuthorUsername).Value!
+                },
                 x.Content, x.CommentPublishedAt).Value!).AsList();
 
-        return new Recipe
+        return new RecipeGetByIdResult
         {
             Id = new RecipeId(uniqueResult.RecipeId),
             Author = new User
@@ -148,6 +156,7 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             PublishedAt = uniqueResult.PublishedAt,
             CookingTime = uniqueResult.CookingTime,
             Rate = new Rate(uniqueResult.Rating, uniqueResult.Votes),
+            UserRate = (Stars)uniqueResult.UserRate,
             Ingredients = ingredients,
             Comments = comments
         };
@@ -328,13 +337,14 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
 
             await db.ExecuteAsync(deleteIngredientsSql, new { RecipeId = updateConfig.RecipeId.Value });
 
-            await db.UseBulkOptions(x => x.DestinationTableName = "Ingredients").BulkInsertAsync(ingredients.Select(x => new
-            {
-                RecipeId = updateConfig.RecipeId.Value,
-                Name = x.Name,
-                Count = x.Count,
-                Unit = x.UnitType.ToString()
-            }));
+            await db.UseBulkOptions(x => x.DestinationTableName = "Ingredients").BulkInsertAsync(ingredients.Select(x =>
+                new
+                {
+                    RecipeId = updateConfig.RecipeId.Value,
+                    Name = x.Name,
+                    Count = x.Count,
+                    Unit = x.UnitType.ToString()
+                }));
         }
 
         await transaction.CommitAsync();
