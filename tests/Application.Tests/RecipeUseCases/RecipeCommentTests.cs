@@ -1,5 +1,6 @@
 using Application.Recipes;
 using Application.Recipes.Comment;
+using Application.Recipes.GetById;
 using Application.Users.UseCases;
 using Domain.RecipeEntity;
 using Moq;
@@ -12,14 +13,13 @@ public class RecipeCommentTests
 {
     private readonly Mock<IRecipeRepository> _repoMock;
     private readonly RecipeComment _useCase;
-    private readonly Mock<IUserRepository> _userMock;
 
     public RecipeCommentTests()
     {
         _repoMock = new Mock<IRecipeRepository>();
-        _userMock = new Mock<IUserRepository>();
+        var userMock = new Mock<IUserRepository>();
 
-        _useCase = new RecipeComment(_repoMock.Object, _userMock.Object);
+        _useCase = new RecipeComment(_repoMock.Object, userMock.Object);
     }
 
     [Fact]
@@ -27,7 +27,7 @@ public class RecipeCommentTests
     {
         // Arrange
         var dto = new RecipeCommentDto(123, 456, "Hello, world!");
-        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>())).ReturnsAsync((Recipe)null!);
+        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null)).ReturnsAsync((RecipeGetByIdResult)null!);
 
         // Act
         var result = await _useCase.Comment(dto);
@@ -35,7 +35,7 @@ public class RecipeCommentTests
         // Assert
         Assert.False(result.IsSuccess);
         Assert.Equal(RecipeErrors.RecipeNotFound, result.Error);
-        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>()), Times.Once);
+        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null), Times.Once);
         _repoMock.Verify(x => x.CommentAsync(It.IsAny<RecipeId>(), It.IsAny<Comment>()),
             Times.Never);
     }
@@ -44,11 +44,11 @@ public class RecipeCommentTests
     public async Task ContentIsInvalid_ReturnsError()
     {
         // Arrange
-        var obj = new Recipe();
+        var obj = new RecipeGetByIdResult();
         var dto1 = new RecipeCommentDto(123, 456, "");
         var dto2 = new RecipeCommentDto(123, 456, "            ");
         var dto3 = new RecipeCommentDto(123, 456, new string('*', 2000));
-        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>())).ReturnsAsync(obj);
+        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null)).ReturnsAsync(obj);
 
         // Act
         var result1 = await _useCase.Comment(dto1);
@@ -63,7 +63,7 @@ public class RecipeCommentTests
         Assert.False(result3.IsSuccess);
         Assert.Equal(RecipeDomainErrors.CommentLengthOutOfRange, result3.Error);
 
-        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>()), Times.Exactly(3));
+        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null), Times.Exactly(3));
         _repoMock.Verify(x => x.CommentAsync(It.IsAny<RecipeId>(), It.IsAny<Comment>()),
             Times.Never);
     }
@@ -72,16 +72,16 @@ public class RecipeCommentTests
     public async Task CommentSuccessfully_ReturnsSuccess()
     {
         // Arrange
-        var obj = new Recipe();
+        var obj = new RecipeGetByIdResult();
         var dto = new RecipeCommentDto(123, 456, "Hello, world!");
-        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>())).ReturnsAsync(obj);
+        _repoMock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null)).ReturnsAsync(obj);
 
         // Act
         var result = await _useCase.Comment(dto);
 
         // Assert
         Assert.True(result.IsSuccess);
-        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>()), Times.Once);
+        _repoMock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null), Times.Once);
         _repoMock.Verify(x => x.CommentAsync(It.IsAny<RecipeId>(), It.IsAny<Comment>()),
             Times.Once);
     }
