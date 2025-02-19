@@ -11,9 +11,9 @@ using Application.Recipes.GetByQuery;
 using Application.Recipes.Rate;
 using Application.Recipes.Update;
 using Application.Users.UseCases.GetById;
-using Domain.RecipeEntity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 // ReSharper disable RedundantAnonymousTypePropertyName
 
 namespace API.Endpoints;
@@ -40,30 +40,30 @@ public static class RecipeEndpoints
     private static async Task<IResult> Create(
         [FromForm] RecipeCreateEndpointDto dto,
         [FromForm(Name = "image")] IFormFile imageFile,
-        [FromServices] RecipeCreate recipeCreate, 
+        [FromServices] RecipeCreate recipeCreate,
         [FromServices] IHostEnvironment env,
         [FromServices] FileService fileService,
         HttpContext context)
     {
         var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
-        
-        if (imageFile.Length == 0 || (!imageFile.FileName.EndsWith(".jpg") && !imageFile.FileName.EndsWith(".png"))) 
+
+        if (imageFile.Length == 0 || (!imageFile.FileName.EndsWith(".jpg") && !imageFile.FileName.EndsWith(".png")))
             return Results.BadRequest("File format is not recognized.");
-        
+
         var imageName = fileService.GenerateName(imageFile.FileName);
 
         var recipeCreateDto = new RecipeCreateDto(
-            AuthorId: int.Parse(userId),
-            Title: dto.Title,
-            Description: dto.Description,
-            Instruction: dto.Instruction,
-            ImageName: imageName,
-            Difficulty: dto.Difficulty,
-            CookingTime: dto.CookingTime,
-            Ingredients: dto.Ingredients);
-        
+            int.Parse(userId),
+            dto.Title,
+            dto.Description,
+            dto.Instruction,
+            imageName,
+            dto.Difficulty,
+            dto.CookingTime,
+            dto.Ingredients);
+
         var result = await recipeCreate.CreateAsync(recipeCreateDto);
-        
+
         if (!result.IsSuccess) Results.BadRequest(result.Error);
 
         _ = fileService.SaveImage(imageFile, imageName, env.ContentRootPath);
@@ -72,9 +72,9 @@ public static class RecipeEndpoints
 
     [Authorize]
     private static async Task<IResult> Rate(
-        [FromRoute]int recipeId,
-        [FromForm]int stars,
-        [FromServices]RecipeRate rateService,
+        [FromRoute] int recipeId,
+        [FromForm] int stars,
+        [FromServices] RecipeRate rateService,
         HttpContext context)
     {
         var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
@@ -82,44 +82,46 @@ public static class RecipeEndpoints
         var result = await rateService.Rate(rateDto);
 
         if (result.IsSuccess) return Results.Ok((int)result.Value);
-        
+
         if (result.Error == RecipeErrors.RecipeNotFound) return Results.NotFound();
-        if (result.Error == RecipeErrors.StarsAreNotDefined) return Results.Problem(statusCode: 400, title: result.Error.Code, detail: result.Error.Description);
+        if (result.Error == RecipeErrors.StarsAreNotDefined)
+            return Results.Problem(statusCode: 400, title: result.Error.Code, detail: result.Error.Description);
 
         return Results.Forbid();
     }
 
     [Authorize]
     private static async Task<IResult> Comment(
-        [FromRoute]int recipeId,
-        [FromForm]string content,
-        [FromServices]RecipeComment commentService,
+        [FromRoute] int recipeId,
+        [FromForm] string content,
+        [FromServices] RecipeComment commentService,
         HttpContext context)
     {
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
         var commentDto = new RecipeCommentDto(
-            UserId: int.Parse(userId),
-            RecipeId: recipeId,
-            Content: content);
-        
+            int.Parse(userId),
+            recipeId,
+            content);
+
         var result = await commentService.Comment(commentDto);
 
         if (result.IsSuccess) return Results.Created();
 
-        return result.Error == RecipeErrors.RecipeNotFound 
-            ? Results.NotFound() 
+        return result.Error == RecipeErrors.RecipeNotFound
+            ? Results.NotFound()
             : Results.BadRequest(result.Error);
     }
 
     private static async Task<IResult> SearchById(
-        [FromRoute]int recipeId, 
-        [FromServices]RecipeGetById recipeService,
-        [FromServices]UserGetById userService,
+        [FromRoute] int recipeId,
+        [FromServices] RecipeGetById recipeService,
+        [FromServices] UserGetById userService,
         HttpContext context)
     {
         var userCredential = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var result = await recipeService.GetRecipeAsync(recipeId, userCredential is null ? null : int.Parse(userCredential));
+        var result =
+            await recipeService.GetRecipeAsync(recipeId, userCredential is null ? null : int.Parse(userCredential));
         if (result is null) return Results.NotFound();
 
         return Results.Ok(new
@@ -156,14 +158,14 @@ public static class RecipeEndpoints
     }
 
     private static async Task<IResult> SearchByPage(
-        [FromQuery]int page,
-        [FromQuery]int pageSize,
-        [FromQuery]string sortType,
-        [FromServices]RecipeGetByPage recipeService)
+        [FromQuery] int page,
+        [FromQuery] int pageSize,
+        [FromQuery] string sortType,
+        [FromServices] RecipeGetByPage recipeService)
     {
         var dto = new RecipeGetByPageDto(page, pageSize, sortType);
         var result = await recipeService.GetRecipesAsync(dto);
-        
+
         return Results.Ok(result.Select(x => new
         {
             Id = x.Id.Value,
@@ -177,11 +179,11 @@ public static class RecipeEndpoints
     }
 
     private static async Task<IResult> SearchByQuery(
-        [FromQuery]string query,
-        [FromServices]RecipeGetByQuery recipeService)
+        [FromQuery] string query,
+        [FromServices] RecipeGetByQuery recipeService)
     {
         var result = await recipeService.GetRecipesAsync(query);
-        
+
         return Results.Ok(result.Select(x => new
         {
             Id = x.Id.Value,
@@ -196,45 +198,40 @@ public static class RecipeEndpoints
 
     [Authorize]
     private static async Task<IResult> Update(
-        [FromRoute]int recipeId,
-        [FromForm]RecipeUpdateEndpointDto? dto,
-        [FromForm(Name = "image")]IFormFile? image,
-        [FromServices]RecipeUpdate recipeService,
-        [FromServices]FileService fileService,
+        [FromRoute] int recipeId,
+        [FromForm] RecipeUpdateEndpointDto? dto,
+        [FromForm(Name = "image")] IFormFile? image,
+        [FromServices] RecipeUpdate recipeService,
+        [FromServices] FileService fileService,
         HttpContext context,
         IHostEnvironment env)
     {
         if (dto is null) return Results.Ok();
-        
+
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
         if (image is not null)
-        {
-            if (image.Length == 0 || (!image.FileName.EndsWith(".jpg") && !image.FileName.EndsWith(".png"))) 
+            if (image.Length == 0 || (!image.FileName.EndsWith(".jpg") && !image.FileName.EndsWith(".png")))
                 return Results.BadRequest("File format is not recognized.");
-        }
-        
+
         var imageName = image is null ? null : fileService.GenerateName(image.FileName);
-        
+
         var updateDto = new RecipeUpdateDto(
-            RecipeId: recipeId,
-            UserId: int.Parse(userId),
-            Title: dto.Title,
-            Description: dto.Description,
-            Instruction: dto.Instruction,
-            ImageName: imageName,
-            Difficulty: dto.Difficulty,
-            CookingTime: dto.CookingTime,
-            Ingredients: dto.Ingredients); 
-        
+            recipeId,
+            int.Parse(userId),
+            dto.Title,
+            dto.Description,
+            dto.Instruction,
+            imageName,
+            dto.Difficulty,
+            dto.CookingTime,
+            dto.Ingredients);
+
         var result = await recipeService.UpdateAsync(updateDto);
 
         if (result.IsSuccess)
         {
-            if (imageName is not null)
-            {
-                _ = fileService.SaveImage(image!, imageName, env.ContentRootPath);
-            }
+            if (imageName is not null) _ = fileService.SaveImage(image!, imageName, env.ContentRootPath);
             return Results.Ok();
         }
 
@@ -246,14 +243,14 @@ public static class RecipeEndpoints
 
     [Authorize]
     private static async Task<IResult> Delete(
-        [FromRoute]int recipeId,
-        [FromServices]RecipeDelete recipeService,
+        [FromRoute] int recipeId,
+        [FromServices] RecipeDelete recipeService,
         HttpContext context)
     {
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var result = await recipeService.DeleteAsync(
-            recipeId: recipeId, 
-            userId: int.Parse(userId));
+            recipeId,
+            int.Parse(userId));
 
         if (result.IsSuccess) return Results.NoContent();
 
@@ -261,5 +258,6 @@ public static class RecipeEndpoints
             ? Results.NotFound()
             : Results.Forbid();
     }
+
     #endregion
 }

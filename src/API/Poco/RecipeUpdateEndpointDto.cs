@@ -1,6 +1,7 @@
 using Application.Recipes;
 
 namespace API.Poco;
+
 public class RecipeUpdateEndpointDto
 {
     public string? Title { get; init; } = null;

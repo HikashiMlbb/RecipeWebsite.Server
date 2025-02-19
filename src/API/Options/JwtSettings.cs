@@ -11,5 +11,8 @@ public class JwtSettings
     public string Audience { get; set; } = null!;
     public string Key { get; set; } = null!;
 
-    public SymmetricSecurityKey GetKey() => new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
+    public SymmetricSecurityKey GetKey()
+    {
+        return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
+    }
 }

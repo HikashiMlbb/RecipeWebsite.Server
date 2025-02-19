@@ -20,7 +20,7 @@ public class RecipeRate
         var recipe = await _recipeRepo.SearchByIdAsync(recipeId);
         if (recipe is null) return RecipeErrors.RecipeNotFound;
         if (recipe.Author.Id == userId) return RecipeErrors.UserIsAuthor;
-        
+
         if (dto.Stars is null
             || !Enum.IsDefined((Stars)dto.Stars)
             || dto.Stars == (int)Stars.Zero) return RecipeErrors.StarsAreNotDefined;

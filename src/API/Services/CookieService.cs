@@ -9,7 +9,7 @@ public class CookieService(CookieSettings settings)
         return new CookieOptions
         {
             HttpOnly = false,
-            MaxAge = settings.Expires 
+            MaxAge = settings.Expires
         };
     }
 }

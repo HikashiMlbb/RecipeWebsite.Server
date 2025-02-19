@@ -4,7 +4,7 @@ public class FileService
 {
     public string GenerateName(string fileName)
     {
-        return Guid.NewGuid().ToString() + '.' + fileName.Split('.').Last();   
+        return Guid.NewGuid().ToString() + '.' + fileName.Split('.').Last();
     }
 
     public async Task SaveImage(IFormFile file, string name, string root)

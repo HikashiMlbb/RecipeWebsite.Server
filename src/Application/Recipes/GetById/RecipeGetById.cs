@@ -15,7 +15,7 @@ public class RecipeGetById
     public async Task<RecipeGetByIdResult?> GetRecipeAsync(int recipeId, int? userId = null)
     {
         var typedRecipeId = new RecipeId(recipeId);
-        var typedUserId = userId is null ? null : new UserId(userId.Value); 
+        var typedUserId = userId is null ? null : new UserId(userId.Value);
         var foundRecipe = await _repo.SearchByIdAsync(typedRecipeId, typedUserId);
         if (foundRecipe is null) return null;
 

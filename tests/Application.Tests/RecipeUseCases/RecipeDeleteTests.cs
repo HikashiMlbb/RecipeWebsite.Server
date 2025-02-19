@@ -13,8 +13,8 @@ namespace Application.Tests.RecipeUseCases;
 public class RecipeDeleteTests
 {
     private readonly Mock<IRecipeRepository> _mock;
-    private readonly Mock<IUserRepository> _userMock;
     private readonly RecipeDelete _useCase;
+    private readonly Mock<IUserRepository> _userMock;
 
     public RecipeDeleteTests()
     {
@@ -92,10 +92,10 @@ public class RecipeDeleteTests
         var recipe = new RecipeGetByIdResult { Author = new User { Id = new UserId(userId + 1234) } };
         _mock.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null)).ReturnsAsync(recipe);
         _userMock.Setup(x => x.SearchByIdAsync(It.IsAny<UserId>())).ReturnsAsync(user);
-        
+
         // Act
         var result = await _useCase.DeleteAsync(recipeId, userId);
-        
+
         // Assert
         Assert.True(result.IsSuccess);
         _mock.Verify(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null), Times.Once);

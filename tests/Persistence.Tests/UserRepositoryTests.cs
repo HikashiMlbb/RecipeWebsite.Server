@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Dapper;
 using Domain.RecipeEntity;
 using Domain.UserEntity;
@@ -144,7 +143,8 @@ public class UserRepositoryTests : IAsyncLifetime
         await db.OpenAsync();
 
         await db.ExecuteAsync(
-            "INSERT INTO \"Users\" (\"Id\", \"Username\", \"Password\", \"Role\") VALUES (@Id, @Username, @Password, @Role);", new
+            "INSERT INTO \"Users\" (\"Id\", \"Username\", \"Password\", \"Role\") VALUES (@Id, @Username, @Password, @Role);",
+            new
             {
                 Id = userId.Value,
                 Username = username.Value,
@@ -182,7 +182,8 @@ public class UserRepositoryTests : IAsyncLifetime
         await db.OpenAsync();
 
         await db.ExecuteAsync(
-            "INSERT INTO \"Users\" (\"Id\", \"Username\", \"Password\", \"Role\") VALUES (@Id, @Username, @Password, @Role);", new
+            "INSERT INTO \"Users\" (\"Id\", \"Username\", \"Password\", \"Role\") VALUES (@Id, @Username, @Password, @Role);",
+            new
             {
                 Id = userId.Value,
                 Username = username.Value!,

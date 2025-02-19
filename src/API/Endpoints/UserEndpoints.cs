@@ -27,33 +27,37 @@ public static class UserEndpoints
     #region Private Implementation of Endpoints
 
     private static async Task<IResult> Login(
-        [FromBody]UserDto dto,
-        [FromServices]UserLogin userLogin,
-        [FromServices]CookieService cookieService,
+        [FromBody] UserDto dto,
+        [FromServices] UserLogin userLogin,
+        [FromServices] CookieService cookieService,
         HttpContext context)
     {
         var loginResult = await userLogin.LoginAsync(dto);
-        if (!loginResult.IsSuccess) return Results.Problem(statusCode: 401, title: loginResult.Error!.Code, detail: loginResult.Error.Description);
-        
+        if (!loginResult.IsSuccess)
+            return Results.Problem(statusCode: 401, title: loginResult.Error!.Code,
+                detail: loginResult.Error.Description);
+
         context.Response.Cookies.Append(CookieConstants.CookieName, loginResult.Value!, cookieService.GetOptions());
         return Results.NoContent();
     }
 
     private static async Task<IResult> SignUp(
-        [FromBody]UserDto dto, 
-        [FromServices]UserRegister userRegister,
-        [FromServices]CookieService cookieService,
+        [FromBody] UserDto dto,
+        [FromServices] UserRegister userRegister,
+        [FromServices] CookieService cookieService,
         HttpContext context)
     {
         var signUpResult = await userRegister.RegisterAsync(dto);
 
         if (signUpResult.IsSuccess)
         {
-            context.Response.Cookies.Append(CookieConstants.CookieName, signUpResult.Value!, cookieService.GetOptions());
+            context.Response.Cookies.Append(CookieConstants.CookieName, signUpResult.Value!,
+                cookieService.GetOptions());
             return Results.NoContent();
         }
+
         if (signUpResult.Error == UserErrors.UserAlreadyExists) return Results.Conflict(signUpResult.Error);
-        if (signUpResult.Error == UserDomainErrors.UsernameUnallowedSymbols 
+        if (signUpResult.Error == UserDomainErrors.UsernameUnallowedSymbols
             || signUpResult.Error == UserDomainErrors.UsernameLengthOutOfRange
             || signUpResult.Error == UserErrors.PasswordIsIncorrect) return Results.BadRequest(signUpResult.Error);
 
@@ -62,25 +66,26 @@ public static class UserEndpoints
 
     [Authorize]
     private static async Task<IResult> Update(
-        [FromBody]UserUpdateDto dto, 
-        [FromServices]UserUpdate userUpdate,
+        [FromBody] UserUpdateDto dto,
+        [FromServices] UserUpdate userUpdate,
         HttpContext context)
     {
         var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
         var userDto = dto with { Id = int.Parse(userId) };
-        
+
         var result = await userUpdate.UpdateAsync(userDto);
 
         if (result.IsSuccess) return Results.Ok();
-        
+
         if (result.Error == UserErrors.UserIdNotFound) return Results.NotFound();
-        if (result.Error == UserErrors.PasswordIsIncorrect) return Results.Problem(statusCode: 401, title: result.Error.Code, detail: result.Error.Description);
-        
+        if (result.Error == UserErrors.PasswordIsIncorrect)
+            return Results.Problem(statusCode: 401, title: result.Error.Code, detail: result.Error.Description);
+
         return Results.StatusCode(500);
     }
-    
-    private static async Task<IResult> Get(int id, [FromServices]UserGetById userGet)
+
+    private static async Task<IResult> Get(int id, [FromServices] UserGetById userGet)
     {
         var result = await userGet.GetUserAsync(id);
 
@@ -103,6 +108,6 @@ public static class UserEndpoints
                 })
             });
     }
-        
+
     #endregion
 }

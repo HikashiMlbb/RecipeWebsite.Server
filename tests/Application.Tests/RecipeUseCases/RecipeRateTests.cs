@@ -13,8 +13,8 @@ namespace Application.Tests.RecipeUseCases;
 public class RecipeRateTests
 {
     private readonly Mock<IRecipeRepository> _repoMock;
-    private readonly Mock<IUserRepository> _userMock;
     private readonly RecipeRate _useCase;
+    private readonly Mock<IUserRepository> _userMock;
 
     public RecipeRateTests()
     {
