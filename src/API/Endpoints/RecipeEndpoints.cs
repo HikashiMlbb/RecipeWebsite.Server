@@ -11,6 +11,7 @@ using Application.Recipes.GetByQuery;
 using Application.Recipes.Rate;
 using Application.Recipes.Update;
 using Application.Users.UseCases.GetById;
+using Domain.RecipeEntity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 // ReSharper disable RedundantAnonymousTypePropertyName
@@ -135,6 +136,7 @@ public static class RecipeEndpoints
             PublishedAt = result.PublishedAt,
             CookingTime = result.CookingTime.ToString(),
             Rating = result.Rate.Value,
+            UserRate = (int)result.UserRate,
             Votes = result.Rate.TotalVotes,
             Ingredients = result.Ingredients.Select(x => new
             {
