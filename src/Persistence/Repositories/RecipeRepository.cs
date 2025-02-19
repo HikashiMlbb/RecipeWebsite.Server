@@ -90,11 +90,8 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
                            LEFT OUTER JOIN "Ingredients" ingredients ON ingredients."RecipeId" = recipes."Id"
                            LEFT OUTER JOIN "Comments" comments ON comments."RecipeId" = recipes."Id"
                            LEFT OUTER JOIN "Users" comment_author ON comment_author."Id" = comments."UserId"
-                           LEFT OUTER JOIN "RecipeRatings" recipe_ratings ON recipe_ratings."RecipeId" = recipes."Id"
-                           WHERE recipes."Id" = @Id
-                           AND CASE WHEN @UserId <> null THEN recipe_ratings."UserId" = @UserId
-                                    ELSE true
-                               END;
+                           LEFT OUTER JOIN "RecipeRatings" recipe_ratings ON recipe_ratings."RecipeId" = recipes."Id" AND recipe_ratings."UserId" = @UserId
+                           WHERE recipes."Id" = @Id;
                            """;
 
         RecipeDatabaseDto? detailedDto = null;
