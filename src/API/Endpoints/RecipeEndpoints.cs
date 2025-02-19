@@ -115,9 +115,11 @@ public static class RecipeEndpoints
     private static async Task<IResult> SearchById(
         [FromRoute]int recipeId, 
         [FromServices]RecipeGetById recipeService,
-        [FromServices]UserGetById userService)
+        [FromServices]UserGetById userService,
+        HttpContext context)
     {
-        var result = await recipeService.GetRecipeAsync(recipeId);
+        var userCredential = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var result = await recipeService.GetRecipeAsync(recipeId, userCredential is null ? null : int.Parse(userCredential));
         if (result is null) return Results.NotFound();
 
         return Results.Ok(new
