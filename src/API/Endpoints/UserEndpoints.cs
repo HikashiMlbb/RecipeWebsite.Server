@@ -101,7 +101,7 @@ public static class UserEndpoints
                     Id = x.Id.Value,
                     Title = x.Title.Value,
                     ImageName = x.ImageName.Value,
-                    Difficulty = x.Difficulty.ToString(),
+                    Difficulty = (int)x.Difficulty,
                     CookingTime = x.CookingTime.ToString(),
                     Rating = x.Rate.Value,
                     Votes = x.Rate.TotalVotes

@@ -2,7 +2,7 @@ namespace Domain.RecipeEntity;
 
 public enum RecipeDifficulty
 {
-    Easy,
+    Easy = 1,
     Medium,
     Hard
 }

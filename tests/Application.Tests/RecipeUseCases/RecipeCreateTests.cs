@@ -25,7 +25,7 @@ public class RecipeCreateTests
     public async Task TitleIsInvalid_ReturnsError()
     {
         // Arrange
-        var dto = new RecipeCreateDto(1, "", "", "", "", "hard", "", []);
+        var dto = new RecipeCreateDto(1, "", "", "", "", 3, "", []);
 
         // Act
         var result = await _useCase.CreateAsync(dto);
@@ -40,7 +40,7 @@ public class RecipeCreateTests
     public async Task DescriptionIsInvalid_ReturnsError()
     {
         // Arrange
-        var dto = new RecipeCreateDto(1, "SomeValidTitle", "", "", "", "hard", "", []);
+        var dto = new RecipeCreateDto(1, "SomeValidTitle", "", "", "", 3, "", []);
 
         // Act
         var result = await _useCase.CreateAsync(dto);
@@ -56,7 +56,7 @@ public class RecipeCreateTests
     {
         // Arrange
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "", "", "Hard", "", []);
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "", "", 3, "", []);
 
         // Act
         var result = await _useCase.CreateAsync(dto);
@@ -72,7 +72,7 @@ public class RecipeCreateTests
     {
         // Arrange
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "what?", "",
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", 4, "",
             []);
 
         // Act
@@ -89,7 +89,7 @@ public class RecipeCreateTests
     {
         // Arrange
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "hard",
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", 3,
             "1234:1234:1234", []);
 
         // Act
@@ -106,7 +106,7 @@ public class RecipeCreateTests
     {
         // Arrange
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "hard",
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", 3,
             "99.23:59:59.9990000", []);
 
         // Act
@@ -123,7 +123,7 @@ public class RecipeCreateTests
     {
         // Arrange
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "hard",
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", 3,
             "6.23:59:59.9990000", []);
 
         // Act
@@ -141,7 +141,7 @@ public class RecipeCreateTests
         // Arrange
         var ingredientDto = new IngredientDto("um", 1, "grams");
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "hard",
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", 3,
             "6.23:59:59.9990000", [ingredientDto]);
 
         // Act
@@ -159,7 +159,7 @@ public class RecipeCreateTests
         // Arrange
         var ingredientDto = new IngredientDto("egg", 0, "pieces");
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "Hard",
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", 3,
             "6.23:59:59.9990000", [ingredientDto]);
 
         // Act
@@ -177,7 +177,7 @@ public class RecipeCreateTests
         // Arrange
         var ingredientDto = new IngredientDto("egg", 1_000_000, "pieces");
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "hard",
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", 3,
             "6.23:59:59.9990000", [ingredientDto]);
 
         // Act
@@ -195,7 +195,7 @@ public class RecipeCreateTests
         // Arrange
         var ingredientDto = new IngredientDto("egg", 5, "what");
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "hard",
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", 3,
             "6.23:59:59.9990000", [ingredientDto]);
 
         // Act
@@ -214,7 +214,7 @@ public class RecipeCreateTests
         const int recipeId = 666_69;
         var ingredientDto = new IngredientDto("egg", 5, "pieces");
         var dto = new RecipeCreateDto(1, "SomeValidTitle",
-            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", "hard",
+            "SomeValidDescriptionSomeValidDescriptionSomeValidDescription", "SomeValidInstruction", "", 3,
             "6.23:59:59.9990000", [ingredientDto]);
         _recipeRepoMock.Setup(x => x.InsertAsync(It.IsAny<Recipe>())).ReturnsAsync(new RecipeId(recipeId));
 

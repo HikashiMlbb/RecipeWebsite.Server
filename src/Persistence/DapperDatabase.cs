@@ -39,7 +39,7 @@ public static class DapperDatabase
                                                   "Description" TEXT NOT NULL,
                                                   "Instruction" TEXT NOT NULL,
                                                   "ImageName" TEXT NOT NULL,
-                                                  "Difficulty" TEXT NOT NULL,
+                                                  "Difficulty" INT NOT NULL,
                                                   "PublishedAt" TIMESTAMPTZ NOT NULL,
                                                   "CookingTime" INTERVAL NOT NULL,
                                                   "Rating" NUMERIC(2, 1) NOT NULL,

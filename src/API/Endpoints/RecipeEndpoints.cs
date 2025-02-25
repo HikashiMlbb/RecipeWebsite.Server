@@ -136,7 +136,7 @@ public static class RecipeEndpoints
             Description = result.Description.Value,
             Instruction = result.Instruction.Value,
             Image = result.ImageName.Value,
-            Difficulty = result.Difficulty.ToString(),
+            Difficulty = (int)result.Difficulty,
             PublishedAt = result.PublishedAt,
             CookingTime = result.CookingTime.ToString(),
             Rating = result.Rate.Value,
@@ -158,10 +158,10 @@ public static class RecipeEndpoints
     }
 
     private static async Task<IResult> SearchByPage(
-        [FromQuery] int page,
-        [FromQuery] int pageSize,
-        [FromQuery] string sortType,
-        [FromServices] RecipeGetByPage recipeService)
+        [FromServices] RecipeGetByPage recipeService,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10,
+        [FromQuery] string sortType = "popular")
     {
         var dto = new RecipeGetByPageDto(page, pageSize, sortType);
         var result = await recipeService.GetRecipesAsync(dto);
@@ -171,7 +171,7 @@ public static class RecipeEndpoints
             Id = x.Id.Value,
             Title = x.Title.Value,
             Image = x.ImageName.Value,
-            Difficulty = x.Difficulty.ToString(),
+            Difficulty = (int)x.Difficulty,
             CookingTime = x.CookingTime,
             Rating = x.Rate.Value,
             Votes = x.Rate.TotalVotes
@@ -189,7 +189,7 @@ public static class RecipeEndpoints
             Id = x.Id.Value,
             Title = x.Title.Value,
             Image = x.ImageName.Value,
-            Difficulty = x.Difficulty.ToString(),
+            Difficulty = (int)x.Difficulty,
             CookingTime = x.CookingTime,
             Rating = x.Rate.Value,
             Votes = x.Rate.TotalVotes
