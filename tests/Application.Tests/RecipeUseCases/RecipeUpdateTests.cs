@@ -117,7 +117,7 @@ public class RecipeUpdateTests
     {
         // Arrange
         var recipe = new RecipeGetByIdResult { Author = new User { Id = new UserId(26) } };
-        var dto = new RecipeUpdateDto(13, 26, Difficulty: "INvaLID");
+        var dto = new RecipeUpdateDto(13, 26, Difficulty: 15);
         _mockRepo.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null)).ReturnsAsync(recipe);
 
         // Act
@@ -268,7 +268,7 @@ public class RecipeUpdateTests
             "SomeValidDescriptionSomeValidDescriptionSomeValidDescription",
             "SomeValidInstruction",
             "newImageNameGUID",
-            "hard",
+            3,
             "12:00",
             [new IngredientDto("egg", 1_000, "pieces")]);
         _mockRepo.Setup(x => x.SearchByIdAsync(It.IsAny<RecipeId>(), null)).ReturnsAsync(recipe);

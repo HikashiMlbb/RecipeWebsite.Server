@@ -201,7 +201,7 @@ public class UserRepositoryTests : IAsyncLifetime
                 Description = new string('b', 500),
                 Instruction = new string('b', 500),
                 ImageName = imageName.Value,
-                Difficulty = difficulty.ToString(),
+                Difficulty = (int)difficulty,
                 PublishedAt = DateTimeOffset.UtcNow,
                 CookingTime = cookingTime,
                 Rating = rating.Value,

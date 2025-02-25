@@ -162,7 +162,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
         });
 
         await db.ExecuteAsync(
-            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, @Title, 'D', 'I', 'Img', 'hard', now(), '2h', 0, 0);", new
+            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, @Title, 'D', 'I', 'Img', 3, now(), '2h', 0, 0);", new
             {
                 Id = recipeId.Value,
                 AuthorId = userId.Value,
@@ -212,7 +212,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
         });
 
         await db.ExecuteAsync(
-            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, @Title, 'D', 'I', 'Img', 'hard', now(), '2h', 0, 0);", new
+            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, @Title, 'D', 'I', 'Img', 3, now(), '2h', 0, 0);", new
             {
                 Id = recipeId.Value,
                 AuthorId = userId.Value,
@@ -295,7 +295,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
             });
 
         await db.ExecuteAsync(
-            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, @Title, 'D', 'I', 'Img', 'hard', now(), '2h', 0, 0);", new
+            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, @Title, 'D', 'I', 'Img', 3, now(), '2h', 0, 0);", new
             {
                 Id = recipeId.Value,
                 AuthorId = userId.Value,
@@ -384,7 +384,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
             });
 
         await db.ExecuteAsync(
-            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, @Title, 'D', 'I', 'Img', 'hard', now(), '2h', 0, 0);", new
+            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, @Title, 'D', 'I', 'Img', 3, now(), '2h', 0, 0);", new
             {
                 Id = recipeId.Value,
                 AuthorId = userId.Value,
@@ -430,7 +430,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (123, 'Peter', 'Password1234', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (456, 123, 'RecipeTitle', 'RecipeD', 'RI', 'IMG', 'hard', now(), '2h', 0, 0);
+                              VALUES (456, 123, 'RecipeTitle', 'RecipeD', 'RI', 'IMG', 3, now(), '2h', 0, 0);
                               """);
 
         #endregion
@@ -468,7 +468,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
                                      (321, 'Ivan', '1234Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (456, 123, 'RecipeTitle', 'RecipeD', 'RI', 'IMG', 'hard', now(), '2h', 0, 0);
+                              VALUES (456, 123, 'RecipeTitle', 'RecipeD', 'RI', 'IMG', 3, now(), '2h', 0, 0);
                               """);
 
         #endregion
@@ -507,7 +507,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (123, 'Peter', 'Password1234', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (456, 123, 'RecipeTitle', 'RecipeD', 'RI', 'IMG', 'hard', now(), '2h', 0, 0);
+                              VALUES (456, 123, 'RecipeTitle', 'RecipeD', 'RI', 'IMG', 3, now(), '2h', 0, 0);
                               """);
 
         #endregion
@@ -546,7 +546,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (123, 'Peter', 'Password1234', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (456, 123, 'RecipeTitle', 'RecipeD', 'RI', 'IMG', 'hard', now(), '2h', 0, 0);
+                              VALUES (456, 123, 'RecipeTitle', 'RecipeD', 'RI', 'IMG', 3, now(), '2h', 0, 0);
                               """);
 
         #endregion
@@ -589,7 +589,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (@UserId, 'Pavel', 'SomePassword', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (@RecipeId, @UserId, 'T', 'D', 'I', 'IMG', 'hard', now(), '2h', 0, 0);
+                              VALUES (@RecipeId, @UserId, 'T', 'D', 'I', 'IMG', 3, now(), '2h', 0, 0);
                               """, new
         {
             UserId = userId.Value,
@@ -657,11 +657,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                                      (105, 'Username5', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 102, 'T', 'D', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 103, 'T', 'D', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 104, 'T', 'D', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 105, 'T', 'D', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 102, 'T', 'D', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 103, 'T', 'D', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 104, 'T', 'D', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 105, 'T', 'D', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
 
                               INSERT INTO "RecipeRatings" ("RecipeId", "UserId", "Rate")
                               VALUES (503, 101, 1),
@@ -714,11 +714,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                                      (105, 'Username5', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 102, 'T', 'D', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 103, 'T', 'D', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 104, 'T', 'D', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 105, 'T', 'D', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 102, 'T', 'D', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 103, 'T', 'D', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 104, 'T', 'D', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 105, 'T', 'D', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
 
                               INSERT INTO "RecipeRatings" ("RecipeId", "UserId", "Rate")
                               VALUES (503, 101, 1),
@@ -773,11 +773,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                                      (105, 'Username5', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 102, 'T', 'D', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 103, 'T', 'D', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 104, 'T', 'D', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 105, 'T', 'D', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 102, 'T', 'D', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 103, 'T', 'D', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 104, 'T', 'D', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 105, 'T', 'D', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
 
                               INSERT INTO "RecipeRatings" ("RecipeId", "UserId", "Rate")
                               VALUES (503, 101, 1),
@@ -829,11 +829,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                                      (105, 'Username5', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 102, 'T', 'D', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 103, 'T', 'D', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 104, 'T', 'D', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 105, 'T', 'D', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 102, 'T', 'D', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 103, 'T', 'D', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 104, 'T', 'D', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 105, 'T', 'D', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
 
                               INSERT INTO "RecipeRatings" ("RecipeId", "UserId", "Rate")
                               VALUES (503, 101, 1),
@@ -885,11 +885,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                                      (105, 'Username5', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 102, 'T', 'D', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 103, 'T', 'D', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 104, 'T', 'D', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 105, 'T', 'D', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 102, 'T', 'D', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 103, 'T', 'D', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 104, 'T', 'D', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 105, 'T', 'D', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
 
                               INSERT INTO "RecipeRatings" ("RecipeId", "UserId", "Rate")
                               VALUES (503, 101, 1),
@@ -940,11 +940,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                                      (105, 'Username5', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 102, 'T', 'D', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 103, 'T', 'D', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 104, 'T', 'D', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 105, 'T', 'D', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 102, 'T', 'D', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 103, 'T', 'D', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 104, 'T', 'D', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 105, 'T', 'D', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
 
                               INSERT INTO "RecipeRatings" ("RecipeId", "UserId", "Rate")
                               VALUES (503, 101, 1),
@@ -996,11 +996,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                                      (105, 'Username5', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 102, 'T', 'D', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 103, 'T', 'D', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 104, 'T', 'D', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 105, 'T', 'D', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 102, 'T', 'D', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 103, 'T', 'D', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 104, 'T', 'D', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 105, 'T', 'D', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
 
                               INSERT INTO "RecipeRatings" ("RecipeId", "UserId", "Rate")
                               VALUES (503, 101, 1),
@@ -1052,11 +1052,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                                      (105, 'Username5', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 102, 'T', 'D', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 103, 'T', 'D', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 104, 'T', 'D', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 105, 'T', 'D', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'T', 'D', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 102, 'T', 'D', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 103, 'T', 'D', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 104, 'T', 'D', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 105, 'T', 'D', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
 
                               INSERT INTO "RecipeRatings" ("RecipeId", "UserId", "Rate")
                               VALUES (503, 101, 1),
@@ -1125,11 +1125,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (101, 'Username1', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'T1', 'D', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 101, 'T2', 'D', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 101, 'T3', 'D', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 101, 'T4', 'D', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 101, 'T5', 'D', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'T1', 'D', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 101, 'T2', 'D', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 101, 'T3', 'D', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 101, 'T4', 'D', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 101, 'T5', 'D', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
                               """);
 
         #endregion
@@ -1161,11 +1161,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (101, 'Username1', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'Brazilian Soup', 'D', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 101, 'Australian Soup', 'D', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 101, 'Russian Soup', 'D', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 101, 'Indian Soup', 'D', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 101, 'Bolon''eze', 'D', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'Brazilian Soup', 'D', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 101, 'Australian Soup', 'D', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 101, 'Russian Soup', 'D', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 101, 'Indian Soup', 'D', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 101, 'Bolon''eze', 'D', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
                               """);
 
         #endregion
@@ -1198,11 +1198,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (101, 'Username1', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'Brazilian Soup', 'Some recipe for soup from Brazil', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 101, 'Australian Soup', 'Some recipe for soup from Australia', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 101, 'Russian Soup', 'Some recipe for soup from Russia', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 101, 'Indian Soup', 'Some recipe for soup from India', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 101, 'Bolon''eze', 'Some recipe for bolon''eze from Italy', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'Brazilian Soup', 'Some recipe for soup from Brazil', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 101, 'Australian Soup', 'Some recipe for soup from Australia', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 101, 'Russian Soup', 'Some recipe for soup from Russia', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 101, 'Indian Soup', 'Some recipe for soup from India', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 101, 'Bolon''eze', 'Some recipe for bolon''eze from Italy', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
                               """);
 
         #endregion
@@ -1235,11 +1235,11 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (101, 'Username1', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (501, 101, 'Brazilian Soup key', 'Some recipe for soup from Brazil key', 'I', 'IMG', 'easy', '2023-05-01 13:13:15+00', '2h', 0, 0),
-                                     (502, 101, 'Australian Soup key', 'Some recipe for soup from Australia', 'I', 'IMG', 'easy', '2022-05-01 13:13:15+00', '2h', 0, 0),
-                                     (503, 101, 'Russian Soup', 'Some recipe for soup from Russia key', 'I', 'IMG', 'easy', '2021-05-01 13:13:15+00', '2h', 0, 0),
-                                     (504, 101, 'Indian Soup', 'Some recipe for soup from India', 'I', 'IMG', 'easy', '2024-05-01 13:13:15+00', '2h', 0, 0),
-                                     (505, 101, 'Bolon''eze', 'Some recipe for bolon''eze from Italy', 'I', 'IMG', 'easy', '2025-01-05 13:13:15+00', '2h', 0, 0);
+                              VALUES (501, 101, 'Brazilian Soup key', 'Some recipe for soup from Brazil key', 'I', 'IMG', 1, '2023-05-01 13:13:15+00', '2h', 0, 0),
+                                     (502, 101, 'Australian Soup key', 'Some recipe for soup from Australia', 'I', 'IMG', 1, '2022-05-01 13:13:15+00', '2h', 0, 0),
+                                     (503, 101, 'Russian Soup', 'Some recipe for soup from Russia key', 'I', 'IMG', 1, '2021-05-01 13:13:15+00', '2h', 0, 0),
+                                     (504, 101, 'Indian Soup', 'Some recipe for soup from India', 'I', 'IMG', 1, '2024-05-01 13:13:15+00', '2h', 0, 0),
+                                     (505, 101, 'Bolon''eze', 'Some recipe for bolon''eze from Italy', 'I', 'IMG', 1, '2025-01-05 13:13:15+00', '2h', 0, 0);
                               """);
 
         #endregion
@@ -1273,7 +1273,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (4, 'Username', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (15, 4, 'Title', 'Description', 'Instruction', 'Image Name', 'hard', now(), '2h', 0, 0);
+                              VALUES (15, 4, 'Title', 'Description', 'Instruction', 'Image Name', 3, now(), '2h', 0, 0);
                               """);
 
         #endregion
@@ -1314,7 +1314,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (4, 'Username', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (15, 4, 'Title', 'Description', 'Instruction', 'Image Name', 'hard', now(), '2h', 0, 0);
+                              VALUES (15, 4, 'Title', 'Description', 'Instruction', 'Image Name', 3, now(), '2h', 0, 0);
                               """);
 
         #endregion
@@ -1323,7 +1323,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
 
         await _repo.UpdateAsync(updateConfig);
         var (title, description, instruction, imageName, difficulty, cookingTime) =
-            await db.QueryFirstAsync<(string, string, string, string, string, TimeSpan)>(
+            await db.QueryFirstAsync<(string, string, string, string, int, TimeSpan)>(
                 "SELECT \"Title\", \"Description\", \"Instruction\", \"ImageName\", \"Difficulty\", \"CookingTime\" FROM \"Recipes\" WHERE \"Id\" = 15");
 
         #endregion
@@ -1334,7 +1334,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
         Assert.Equal(updateConfig.Description!.Value, description);
         Assert.Equal(updateConfig.Instruction!.Value, instruction);
         Assert.Equal(updateConfig.ImageName!.Value, imageName);
-        Assert.Equal(updateConfig.Difficulty!.ToString(), difficulty);
+        Assert.Equal((int)updateConfig.Difficulty!, difficulty);
         Assert.Equal(updateConfig.CookingTime, cookingTime);
 
         #endregion
@@ -1355,7 +1355,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (4, 'Username', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (15, 4, 'Title', 'Description', 'Instruction', 'Image Name', 'hard', now(), '2h', 0, 0);
+                              VALUES (15, 4, 'Title', 'Description', 'Instruction', 'Image Name', 3, now(), '2h', 0, 0);
 
                               INSERT INTO "Ingredients" ("Id", "RecipeId", "Name", "Count", "Unit")
                               VALUES (DEFAULT, 15, 'Coconut', 5, 'pieces'),
@@ -1402,7 +1402,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (4, 'Username', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (15, 4, 'Title', 'Description', 'Instruction', 'Image Name', 'hard', now(), '2h', 0, 0);
+                              VALUES (15, 4, 'Title', 'Description', 'Instruction', 'Image Name', 3, now(), '2h', 0, 0);
 
                               INSERT INTO "Ingredients" ("Id", "RecipeId", "Name", "Count", "Unit")
                               VALUES (DEFAULT, 15, 'Water', 1500, 'milliliters'),
@@ -1440,7 +1440,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
                               VALUES (4, 'Username', 'Password', 'classic');
 
                               INSERT INTO "Recipes" ("Id", "AuthorId", "Title", "Description", "Instruction", "ImageName", "Difficulty", "PublishedAt", "CookingTime", "Rating", "Votes")
-                              VALUES (15, 4, 'Title', 'Description', 'Instruction', 'Image Name', 'hard', now(), '2h', 0, 0);
+                              VALUES (15, 4, 'Title', 'Description', 'Instruction', 'Image Name', 3, now(), '2h', 0, 0);
                               """);
 
         #endregion
