@@ -2,7 +2,7 @@ using Domain.UserEntity;
 
 namespace Domain.RecipeEntity;
 
-public sealed class Recipe
+public class Recipe
 {
     public Recipe(
         User author,
@@ -30,7 +30,7 @@ public sealed class Recipe
     }
 
 #pragma warning disable CS8618, CS9264
-    internal Recipe()
+    public Recipe()
 #pragma warning restore CS8618, CS9264
     {
     }
