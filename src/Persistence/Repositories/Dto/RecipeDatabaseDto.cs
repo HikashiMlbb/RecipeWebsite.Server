@@ -8,7 +8,7 @@ public class RecipeDatabaseDto
     public string Description { get; set; } = null!;
     public string Instruction { get; set; } = null!;
     public string ImageName { get; set; } = null!;
-    public string Difficulty { get; set; } = null!;
+    public int Difficulty { get; set; }
     public DateTimeOffset PublishedAt { get; set; }
     public TimeSpan CookingTime { get; set; }
     public decimal Rating { get; set; }

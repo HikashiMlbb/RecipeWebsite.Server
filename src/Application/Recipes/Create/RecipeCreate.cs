@@ -32,7 +32,8 @@ public class RecipeCreate
         if (!recipeInstructionResult.IsSuccess) return recipeInstructionResult.Error!;
 
         var imageName = new RecipeImageName(dto.ImageName);
-        var isDifficultyDefined = Enum.TryParse<RecipeDifficulty>(dto.Difficulty, true, out var difficulty);
+        var difficulty = dto.Difficulty is null ? (RecipeDifficulty)(-1) : (RecipeDifficulty)dto.Difficulty;
+        var isDifficultyDefined = Enum.IsDefined(difficulty);
         if (!isDifficultyDefined) return RecipeErrors.DifficultyIsNotDefined;
 
         var isParseSuccess = TimeSpan.TryParse(dto.CookingTime, out var cookingTime);

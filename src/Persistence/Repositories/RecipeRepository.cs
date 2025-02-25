@@ -36,7 +36,7 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             Description = newRecipe.Description.Value,
             Instruction = newRecipe.Instruction.Value,
             ImageName = newRecipe.ImageName.Value,
-            Difficulty = newRecipe.Difficulty.ToString(),
+            Difficulty = (int)newRecipe.Difficulty,
             PublishedAt = newRecipe.PublishedAt.ToUniversalTime(),
             CookingTime = newRecipe.CookingTime,
             Rating = 0,
@@ -152,7 +152,8 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             Description = RecipeDescription.Create(uniqueResult.Description).Value!,
             Instruction = RecipeInstruction.Create(uniqueResult.Instruction).Value!,
             ImageName = new RecipeImageName(uniqueResult.ImageName),
-            Difficulty = Enum.Parse<RecipeDifficulty>(uniqueResult.Difficulty, true),
+            // Difficulty = Enum.Parse<RecipeDifficulty>(uniqueResult.Difficulty, true),
+            Difficulty = (RecipeDifficulty)uniqueResult.Difficulty,
             PublishedAt = uniqueResult.PublishedAt,
             CookingTime = uniqueResult.CookingTime,
             Rate = new Rate(uniqueResult.Rating, uniqueResult.Votes),
@@ -249,7 +250,8 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             Id = new RecipeId(x.RecipeId),
             Title = new RecipeTitle(x.Title),
             ImageName = new RecipeImageName(x.ImageName),
-            Difficulty = Enum.Parse<RecipeDifficulty>(x.Difficulty, true),
+            // Difficulty = Enum.Parse<RecipeDifficulty>(x.Difficulty, true),
+            Difficulty = (RecipeDifficulty)x.Difficulty,
             CookingTime = x.CookingTime,
             Rate = new Rate(x.Rating, x.Votes)
         }).ToList();
@@ -288,7 +290,7 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             Id = new RecipeId(x.RecipeId),
             Title = new RecipeTitle(x.Title),
             ImageName = new RecipeImageName(x.ImageName),
-            Difficulty = Enum.Parse<RecipeDifficulty>(x.Difficulty, true),
+            Difficulty = (RecipeDifficulty)x.Difficulty,
             CookingTime = x.CookingTime,
             Rate = new Rate(x.Rating, x.Votes)
         });
@@ -327,7 +329,7 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             Description = updateConfig.Description?.Value,
             Instruction = updateConfig.Instruction?.Value,
             ImageName = updateConfig.ImageName?.Value,
-            Difficulty = updateConfig.Difficulty?.ToString(),
+            Difficulty = (int?)updateConfig.Difficulty,
             updateConfig.CookingTime
         });
 
