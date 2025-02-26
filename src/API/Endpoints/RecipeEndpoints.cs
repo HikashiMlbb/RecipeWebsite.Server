@@ -66,7 +66,7 @@ public static class RecipeEndpoints
 
         if (!result.IsSuccess) Results.BadRequest(result.Error);
 
-        _ = fileService.SaveImage(imageFile, imageName, env.ContentRootPath);
+        await fileService.SaveImage(imageFile, imageName, env.ContentRootPath);
         return Results.Ok(result.Value!.Value);
     }
 
