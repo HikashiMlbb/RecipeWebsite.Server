@@ -8,7 +8,6 @@ using Dapper.Transaction;
 using Domain.RecipeEntity;
 using Domain.UserEntity;
 using Persistence.Repositories.Dto;
-using Z.Dapper.Plus;
 
 // ReSharper disable RedundantAnonymousTypePropertyName
 
@@ -28,6 +27,11 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
                                  VALUES (DEFAULT, @UserId, @Title, @Description, @Instruction, @ImageName, @Difficulty, @PublishedAt, @CookingTime, @Rating, @Votes)
                                  RETURNING "Id";
                                  """;
+        
+        const string insertIngredientsSql = """
+                                            INSERT INTO "Ingredients" ("RecipeId", "Name", "Count", "Unit")
+                                            VALUES (@RecipeId, @Name, @Count, @Unit);
+                                            """;
 
         var recipeId = await transaction.QueryFirstAsync<int>(recipeSql, new
         {
@@ -42,15 +46,14 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             Rating = 0,
             Votes = 0
         });
-
-        await transaction.UseBulkOptions(x => x.DestinationTableName = "Ingredients").BulkInsertAsync(
-            newRecipe.Ingredients.Select(x => new
-            {
-                RecipeId = recipeId,
-                Name = x.Name,
-                Count = x.Count,
-                Unit = x.UnitType.ToString()
-            }));
+        
+        await transaction.ExecuteAsync(insertIngredientsSql, newRecipe.Ingredients.Select(x => new
+        {
+            RecipeId = recipeId,
+            Name = x.Name,
+            Count = x.Count,
+            Unit = x.UnitType.ToString()
+        }));
 
         await transaction.CommitAsync();
 
@@ -336,17 +339,19 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
         if (updateConfig.Ingredients is { } ingredients)
         {
             const string deleteIngredientsSql = "DELETE FROM \"Ingredients\" WHERE \"RecipeId\" = @RecipeId;";
+            const string insertIngredientsSql = """
+                                                INSERT INTO "Ingredients" ("RecipeId", "Name", "Count", "Unit")
+                                                VALUES (@RecipeId, @Name, @Count, @Unit);
+                                                """;
 
-            await db.ExecuteAsync(deleteIngredientsSql, new { RecipeId = updateConfig.RecipeId.Value });
-
-            await db.UseBulkOptions(x => x.DestinationTableName = "Ingredients").BulkInsertAsync(ingredients.Select(x =>
-                new
-                {
-                    RecipeId = updateConfig.RecipeId.Value,
-                    Name = x.Name,
-                    Count = x.Count,
-                    Unit = x.UnitType.ToString()
-                }));
+            await transaction.ExecuteAsync(deleteIngredientsSql, new { RecipeId = updateConfig.RecipeId.Value });
+            await transaction.ExecuteAsync(insertIngredientsSql, ingredients.Select(x => new
+            {
+                @RecipeId = updateConfig.RecipeId.Value,
+                @Name = x.Name,
+                @Count = x.Count,
+                @Unit = x.UnitType.ToString()
+            }));
         }
 
         await transaction.CommitAsync();
