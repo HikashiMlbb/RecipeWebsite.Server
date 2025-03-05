@@ -13,4 +13,6 @@ public static class UserErrors
         new("User.AlreadyExists", "User with given username already exists.");
 
     public static readonly Error PasswordIsIncorrect = new("User.Password", "Password is incorrect.");
+    
+    public static readonly Error PasswordTooShort = new("User.Password.Length", "Password is too short.");
 }

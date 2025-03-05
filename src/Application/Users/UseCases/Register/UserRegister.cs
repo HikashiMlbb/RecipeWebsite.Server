@@ -29,6 +29,7 @@ public class UserRegister
         if (foundUser is not null) return UserErrors.UserAlreadyExists;
 
         if (dto.Password is not { } userPassword) return UserErrors.PasswordIsIncorrect;
+        if (dto.Password.Length < Password.MinimalLength) return UserErrors.PasswordTooShort;
         var password = await _passwordService.CreateAsync(userPassword);
 
         var role = default(UserRole);
