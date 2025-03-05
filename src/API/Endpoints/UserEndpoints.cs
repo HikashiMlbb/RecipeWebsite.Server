@@ -59,7 +59,8 @@ public static class UserEndpoints
         if (signUpResult.Error == UserErrors.UserAlreadyExists) return Results.Conflict(signUpResult.Error);
         if (signUpResult.Error == UserDomainErrors.UsernameUnallowedSymbols
             || signUpResult.Error == UserDomainErrors.UsernameLengthOutOfRange
-            || signUpResult.Error == UserErrors.PasswordIsIncorrect) return Results.BadRequest(signUpResult.Error);
+            || signUpResult.Error == UserErrors.PasswordIsIncorrect
+            || signUpResult.Error == UserErrors.PasswordTooShort) return Results.BadRequest(signUpResult.Error);
 
         return Results.StatusCode(500);
     }

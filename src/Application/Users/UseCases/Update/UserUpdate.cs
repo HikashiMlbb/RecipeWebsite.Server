@@ -26,6 +26,8 @@ public class UserUpdate
             || dto.NewPassword is null
             || !await _passwordService.VerifyAsync(dto.OldPassword, user.Password))
             return UserErrors.PasswordIsIncorrect;
+        
+        if (dto.NewPassword.Trim().Length < Password.MinimalLength) return UserErrors.PasswordTooShort;
 
         var newHashedPassword = await _passwordService.CreateAsync(dto.NewPassword);
         await _repo.UpdatePasswordAsync(userId, newHashedPassword);
