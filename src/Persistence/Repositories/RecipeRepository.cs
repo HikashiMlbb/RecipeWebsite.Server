@@ -89,7 +89,7 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
                                 comment_author."Id" AS "CommentAuthorId",
                                 comment_author."Username" AS "CommentAuthorUsername",
                                 recipe_ratings."Rate" AS "UserRate",
-                                recipes."AuthorId" = @UserId AS "IsModifyAllowed"
+                                COALESCE(recipes."AuthorId" = @UserId, false) AS "IsModifyAllowed"
                            FROM "Recipes" recipes
                            LEFT OUTER JOIN "Users" recipe_author ON recipe_author."Id" = recipes."AuthorId"
                            LEFT OUTER JOIN "Ingredients" ingredients ON ingredients."RecipeId" = recipes."Id"
