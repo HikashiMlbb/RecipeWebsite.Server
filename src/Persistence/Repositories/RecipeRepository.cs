@@ -88,7 +88,8 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
                                 comments."PublishedAt" AS "CommentPublishedAt",
                                 comment_author."Id" AS "CommentAuthorId",
                                 comment_author."Username" AS "CommentAuthorUsername",
-                                recipe_ratings."Rate" AS "UserRate"
+                                recipe_ratings."Rate" AS "UserRate",
+                                recipes."AuthorId" = @UserId AS "IsModifyAllowed"
                            FROM "Recipes" recipes
                            LEFT OUTER JOIN "Users" recipe_author ON recipe_author."Id" = recipes."AuthorId"
                            LEFT OUTER JOIN "Ingredients" ingredients ON ingredients."RecipeId" = recipes."Id"
@@ -103,13 +104,14 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
         var result =
             (await db
                 .QueryAsync<RecipeDatabaseDto, RecipeAuthorDto, IngredientDatabaseDto?, CommentDatabaseDto?,
-                    CommentAuthorDto, int?, RecipeDatabaseDto>(
+                    CommentAuthorDto, int?, bool, RecipeDatabaseDto>(
                     sql,
-                    (recipeDto, recipeAuthorDto, ingredientDto, commentDto, commentAuthorDto, userRate) =>
+                    (recipeDto, recipeAuthorDto, ingredientDto, commentDto, commentAuthorDto, userRate, isModifyAllowed) =>
                     {
                         detailedDto ??= recipeDto;
                         detailedDto.Author = recipeAuthorDto;
                         detailedDto.UserRate = userRate ?? 0;
+                        detailedDto.IsModifyAllowed = isModifyAllowed;
 
                         if (ingredientDto is not null && detailedDto.Ingredients.IsAbsent(ingredientDto.IngredientId))
                             detailedDto.Ingredients.Add(ingredientDto);
@@ -124,7 +126,7 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
                         Id = recipeId.Value,
                         UserId = userId?.Value
                     },
-                    splitOn: "AuthorId, IngredientId, CommentId, CommentAuthorId, UserRate")).ToList();
+                    splitOn: "AuthorId, IngredientId, CommentId, CommentAuthorId, UserRate, IsModifyAllowed")).ToList();
 
         if (result.Count == 0) return null;
 
@@ -155,7 +157,6 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             Description = RecipeDescription.Create(uniqueResult.Description).Value!,
             Instruction = RecipeInstruction.Create(uniqueResult.Instruction).Value!,
             ImageName = new RecipeImageName(uniqueResult.ImageName),
-            // Difficulty = Enum.Parse<RecipeDifficulty>(uniqueResult.Difficulty, true),
             Difficulty = (RecipeDifficulty)uniqueResult.Difficulty,
             PublishedAt = uniqueResult.PublishedAt,
             CookingTime = uniqueResult.CookingTime,

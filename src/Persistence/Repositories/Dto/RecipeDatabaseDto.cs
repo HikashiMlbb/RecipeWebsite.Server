@@ -14,6 +14,7 @@ public class RecipeDatabaseDto
     public decimal Rating { get; set; }
     public int Votes { get; set; }
     public int UserRate { get; set; }
+    public bool IsModifyAllowed { get; set; }
     public ICollection<IngredientDatabaseDto> Ingredients { get; set; } = [];
     public ICollection<CommentDatabaseDto> Comments { get; set; } = [];
 }
