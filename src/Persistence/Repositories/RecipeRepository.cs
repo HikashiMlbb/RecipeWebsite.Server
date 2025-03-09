@@ -162,6 +162,7 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
             CookingTime = uniqueResult.CookingTime,
             Rate = new Rate(uniqueResult.Rating, uniqueResult.Votes),
             UserRate = (Stars)uniqueResult.UserRate,
+            IsModifyAllowed = uniqueResult.IsModifyAllowed,
             Ingredients = ingredients,
             Comments = comments
         };
