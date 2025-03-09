@@ -141,6 +141,7 @@ public static class RecipeEndpoints
             CookingTime = result.CookingTime.ToString(),
             Rating = result.Rate.Value,
             UserRate = (int)result.UserRate,
+            IsModifyAllowed = result.IsModifyAllowed,
             Votes = result.Rate.TotalVotes,
             Ingredients = result.Ingredients.Select(x => new
             {

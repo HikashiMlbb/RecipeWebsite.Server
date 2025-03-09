@@ -417,6 +417,148 @@ public class RecipeRepositoryTests : IAsyncLifetime
     }
 
     [Fact]
+    public async Task SearchRecipeById_IncludeIsModifyAllowed_GuestRequest_ReturnsFalse()
+    {
+        #region Arrange
+
+        var recipeId = new RecipeId(144);
+        var authorId = new UserId(69);
+        var title = RecipeTitle.Create("Soup").Value!;
+
+        _repo = new RecipeRepository(new DapperConnectionFactory(_container.GetConnectionString()));
+        await using var db = new DapperConnectionFactory(_container.GetConnectionString()).Create();
+        await db.OpenAsync();
+
+        // Add users db seed
+        await db.ExecuteAsync(
+            "INSERT INTO \"Users\" VALUES (@Id, 'Vovan', 'A1234', 'classic');",
+            new
+            {
+                Id = authorId.Value
+            });
+        
+        // Add recipes db seed
+        await db.ExecuteAsync(
+            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, 'SomeInterestingRecipe', 'D', 'I', 'Img', 3, now(), '2h', 0, 0);", new
+            {
+                Id = recipeId.Value,
+                AuthorId = authorId.Value,
+                Title = title.Value
+            });
+        
+        #endregion
+
+        #region Act
+
+        var recipe = await _repo.SearchByIdAsync(recipeId);
+
+        #endregion
+
+        #region Assert
+
+        Assert.NotNull(recipe);
+        Assert.Equal(recipeId.Value, recipe.Id.Value);
+        Assert.False(recipe.IsModifyAllowed);
+
+        #endregion
+    }
+    
+    [Fact]
+    public async Task SearchRecipeById_IncludeIsModifyAllowed_NotAuthorRequest_ReturnsFalse()
+    {
+        #region Arrange
+
+        var recipeId = new RecipeId(144);
+        var authorId = new UserId(69);
+        var someUserId = new UserId(52);
+        var title = RecipeTitle.Create("Soup").Value!;
+
+        _repo = new RecipeRepository(new DapperConnectionFactory(_container.GetConnectionString()));
+        await using var db = new DapperConnectionFactory(_container.GetConnectionString()).Create();
+        await db.OpenAsync();
+
+        // Add users db seed
+        await db.ExecuteAsync(
+            "INSERT INTO \"Users\" VALUES (@Id, 'Vovan', 'A1234', 'classic');",
+            new
+            {
+                Id = authorId.Value
+            });
+        
+        // Add recipes db seed
+        await db.ExecuteAsync(
+            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, 'SomeInterestingRecipe', 'D', 'I', 'Img', 3, now(), '2h', 0, 0);", new
+            {
+                Id = recipeId.Value,
+                AuthorId = authorId.Value,
+                Title = title.Value
+            });
+        
+        #endregion
+
+        #region Act
+
+        var recipe = await _repo.SearchByIdAsync(recipeId, someUserId);
+
+        #endregion
+
+        #region Assert
+
+        Assert.NotNull(recipe);
+        Assert.Equal(recipeId.Value, recipe.Id.Value);
+        Assert.False(recipe.IsModifyAllowed);
+
+        #endregion
+    }
+    
+    [Fact]
+    public async Task SearchRecipeById_IncludeIsModifyAllowed_AuthorRequest_ReturnsFalse()
+    {
+        #region Arrange
+
+        var recipeId = new RecipeId(144);
+        var authorId = new UserId(69);
+        var title = RecipeTitle.Create("Soup").Value!;
+
+        _repo = new RecipeRepository(new DapperConnectionFactory(_container.GetConnectionString()));
+        await using var db = new DapperConnectionFactory(_container.GetConnectionString()).Create();
+        await db.OpenAsync();
+
+        // Add users db seed
+        await db.ExecuteAsync(
+            "INSERT INTO \"Users\" VALUES (@Id, 'Vovan', 'A1234', 'classic');",
+            new
+            {
+                Id = authorId.Value
+            });
+        
+        // Add recipes db seed
+        await db.ExecuteAsync(
+            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, 'SomeInterestingRecipe', 'D', 'I', 'Img', 3, now(), '2h', 0, 0);", new
+            {
+                Id = recipeId.Value,
+                AuthorId = authorId.Value,
+                Title = title.Value
+            });
+        
+        #endregion
+
+        #region Act
+
+        var recipe = await _repo.SearchByIdAsync(recipeId, authorId);
+
+        #endregion
+
+        #region Assert
+
+        Assert.NotNull(recipe);
+        Assert.Equal(recipeId.Value, recipe.Id.Value);
+        Assert.True(recipe.IsModifyAllowed);
+
+        #endregion
+    }
+
+    [Fact]
     public async Task RateAsync_SetRate()
     {
         #region Arrange
