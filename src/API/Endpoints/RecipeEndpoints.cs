@@ -152,6 +152,7 @@ public static class RecipeEndpoints
             Comments = result.Comments.Select(x => new
             {
                 UserId = x.Author.Id.Value,
+                Username = x.Author.Username.Value,
                 Content = x.Content,
                 PublishedAt = x.PublishedAt
             })
