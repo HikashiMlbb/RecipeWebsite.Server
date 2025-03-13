@@ -16,7 +16,7 @@ public class RecipeComment
         _userRepo = userRepo;
     }
 
-    public async Task<Result> Comment(RecipeCommentDto dto)
+    public async Task<Result<Domain.RecipeEntity.Comment>> Comment(RecipeCommentDto dto)
     {
         var recipeId = new RecipeId(dto.RecipeId);
         var recipe = await _recipeRepo.SearchByIdAsync(recipeId);
@@ -28,6 +28,6 @@ public class RecipeComment
         if (!commentResult.IsSuccess) return commentResult.Error!;
 
         await _recipeRepo.CommentAsync(recipeId, commentResult.Value!);
-        return Result.Success();
+        return commentResult.Value!;
     }
 }
