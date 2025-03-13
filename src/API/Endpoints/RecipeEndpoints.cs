@@ -106,7 +106,17 @@ public static class RecipeEndpoints
 
         var result = await commentService.Comment(commentDto);
 
-        if (result.IsSuccess) return Results.Created();
+        if (result.IsSuccess)
+        {
+            var responseContent = result.Value!;
+            return Results.Ok(new
+            {
+                UserId = responseContent.Author.Id.Value,
+                Username = responseContent.Author.Username.Value,
+                Content = responseContent.Content,
+                PublishedAt = responseContent.PublishedAt
+            });
+        }
 
         return result.Error == RecipeErrors.RecipeNotFound
             ? Results.NotFound()
