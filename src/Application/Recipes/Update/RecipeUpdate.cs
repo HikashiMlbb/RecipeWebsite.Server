@@ -1,3 +1,4 @@
+using Application.Users.UseCases;
 using Domain.RecipeEntity;
 using Domain.UserEntity;
 using SharedKernel;
@@ -7,10 +8,12 @@ namespace Application.Recipes.Update;
 public class RecipeUpdate
 {
     private readonly IRecipeRepository _recipeRepo;
+    private readonly IUserRepository _userRepo;
 
-    public RecipeUpdate(IRecipeRepository recipeRepo)
+    public RecipeUpdate(IRecipeRepository recipeRepo, IUserRepository userRepo)
     {
         _recipeRepo = recipeRepo;
+        _userRepo = userRepo;
     }
 
     public async Task<Result> UpdateAsync(RecipeUpdateDto dto)
@@ -20,7 +23,8 @@ public class RecipeUpdate
         if (foundRecipe is null) return RecipeErrors.RecipeNotFound;
 
         var userId = new UserId(dto.UserId);
-        if (userId != foundRecipe.Author.Id) return RecipeErrors.UserIsNotAuthor;
+        var user = (await _userRepo.SearchByIdAsync(userId))!;
+        if (userId != foundRecipe.Author.Id && user.Role != UserRole.Admin) return RecipeErrors.UserIsNotAuthor;
 
         var updateConfig = new RecipeUpdateConfig(recipeId);
 
