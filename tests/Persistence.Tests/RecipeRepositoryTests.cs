@@ -512,7 +512,7 @@ public class RecipeRepositoryTests : IAsyncLifetime
     }
     
     [Fact]
-    public async Task SearchRecipeById_IncludeIsModifyAllowed_AuthorRequest_ReturnsFalse()
+    public async Task SearchRecipeById_IncludeIsModifyAllowed_AuthorRequest_ReturnsTrue()
     {
         #region Arrange
 
@@ -546,6 +546,55 @@ public class RecipeRepositoryTests : IAsyncLifetime
         #region Act
 
         var recipe = await _repo.SearchByIdAsync(recipeId, authorId);
+
+        #endregion
+
+        #region Assert
+
+        Assert.NotNull(recipe);
+        Assert.Equal(recipeId.Value, recipe.Id.Value);
+        Assert.True(recipe.IsModifyAllowed);
+
+        #endregion
+    }
+    
+    [Fact]
+    public async Task SearchRecipeById_IncludeIsModifyAllowed_AdminRequest_ReturnsTrue()
+    {
+        #region Arrange
+
+        var recipeId = new RecipeId(144);
+        var adminId = new UserId(555);
+        var authorId = new UserId(69);
+        var title = RecipeTitle.Create("Soup").Value!;
+
+        _repo = new RecipeRepository(new DapperConnectionFactory(_container.GetConnectionString()));
+        await using var db = new DapperConnectionFactory(_container.GetConnectionString()).Create();
+        await db.OpenAsync();
+
+        // Add users db seed
+        await db.ExecuteAsync(
+            "INSERT INTO \"Users\" VALUES (@Id, 'Vovan', 'A1234', 'classic'), (@AdminId, 'NotVovan', '1234A', 'admin');",
+            new
+            {
+                Id = authorId.Value,
+                AdminId = adminId.Value
+            });
+        
+        // Add recipes db seed
+        await db.ExecuteAsync(
+            "INSERT INTO \"Recipes\" VALUES (@Id, @AuthorId, 'SomeInterestingRecipe', 'D', 'I', 'Img', 3, now(), '2h', 0, 0);", new
+            {
+                Id = recipeId.Value,
+                AuthorId = authorId.Value,
+                Title = title.Value
+            });
+        
+        #endregion
+
+        #region Act
+
+        var recipe = await _repo.SearchByIdAsync(recipeId, adminId);
 
         #endregion
 
