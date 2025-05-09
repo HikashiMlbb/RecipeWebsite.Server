@@ -231,7 +231,8 @@ public class RecipeRepository(DapperConnectionFactory factory) : IRecipeReposito
         const string popular = """
                                ORDER BY
                                     "Votes" DESC,
-                                    "Rating" DESC
+                                    "Rating" DESC,
+                                    "PublishedAt" DESC
                                """;
 
         const string newest = "ORDER BY \"PublishedAt\" DESC";
